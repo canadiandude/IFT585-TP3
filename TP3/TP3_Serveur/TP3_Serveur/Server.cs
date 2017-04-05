@@ -14,6 +14,7 @@ namespace TP3_Serveur
         private List<ClientConnection> connectedClients;
         private Socket serverSocket;
         private Thread connectionListener;
+        private Database database;
 
         public Server(String ipAdress, int port)
         {
@@ -22,9 +23,14 @@ namespace TP3_Serveur
             serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             serverSocket.Bind(new IPEndPoint(IPAddress.Parse(ipAdress), port));
             serverSocket.Listen(10);
+            Console.WriteLine("Server socket opened");
 
             connectionListener = new Thread(CheckForNewConnection);
             connectionListener.Start();
+            Console.WriteLine("Connection listener started");
+
+            database = new Database();
+            database.TestConnection();
         }
 
         private void CheckForNewConnection()
