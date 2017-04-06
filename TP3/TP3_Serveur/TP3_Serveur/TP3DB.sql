@@ -7,39 +7,41 @@
 -- New Query
 -- Copy-paste le script
 -- Execute
-CREATE TABLE [dbo].[Users]
-(
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1), 
-    [Name] VARCHAR(50) NOT NULL, 
-    [Password] VARCHAR(50) NOT NULL
+CREATE TABLE [dbo].[Users] (
+    [Id]       INT          IDENTITY (1, 1) NOT NULL,
+    [Name]     VARCHAR (50) NOT NULL,
+    [Password] VARCHAR (50) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
 );
-CREATE TABLE [dbo].[Messages]
-(
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1), 
-    [Message] VARCHAR(1000) NOT NULL, 
-    [UserId] INT NOT NULL FOREIGN KEY REFERENCES Users(Id)
+CREATE TABLE [dbo].[Chatrooms] (
+    [Id]          INT            IDENTITY (1, 1) NOT NULL,
+    [Title]       VARCHAR (50)   NOT NULL,
+    [Description] VARCHAR (1000) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
 );
-CREATE TABLE [dbo].[Chatrooms]
-(
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1), 
-    [Title] VARCHAR(50) NOT NULL, 
-    [Description] VARCHAR(1000) NOT NULL
+CREATE TABLE [dbo].[Messages] (
+    [Id]         INT            IDENTITY (1, 1) NOT NULL,
+    [Message]    VARCHAR (1000) NOT NULL,
+    [UserId]     INT            NOT NULL,
+    [ChatroomId] INT            NOT NULL,
+    [Timestamp]  DATETIME       NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users] ([Id]),
+    FOREIGN KEY ([ChatroomId]) REFERENCES [dbo].[Chatrooms] ([Id])
 );
-CREATE TABLE [dbo].[UsersChatrooms]
-(
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1), 
-    [UserId] INT NOT NULL FOREIGN KEY REFERENCES Users(Id), 
-    [ChatroomId] INT NOT NULL FOREIGN KEY REFERENCES Chatrooms(Id)
+CREATE TABLE [dbo].[UsersChatrooms] (
+    [Id]         INT IDENTITY (1, 1) NOT NULL,
+    [UserId]     INT NOT NULL,
+    [ChatroomId] INT NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users] ([Id]),
+    FOREIGN KEY ([ChatroomId]) REFERENCES [dbo].[Chatrooms] ([Id])
 );
-CREATE TABLE [dbo].[ChatroomsMessages]
-(
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1), 
-    [ChatroomId] INT NOT NULL FOREIGN KEY REFERENCES Chatrooms(Id), 
-    [MessageId] INT NOT NULL FOREIGN KEY REFERENCES Messages(Id)
-);
-CREATE TABLE [dbo].[Likes]
-(
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1), 
-    [UserId] INT NOT NULL FOREIGN KEY REFERENCES Users(Id), 
-    [MessageId] INT NOT NULL FOREIGN KEY REFERENCES Messages(Id)
+CREATE TABLE [dbo].[Likes] (
+    [Id]        INT IDENTITY (1, 1) NOT NULL,
+    [UserId]    INT NOT NULL,
+    [MessageId] INT NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users] ([Id]),
+    FOREIGN KEY ([MessageId]) REFERENCES [dbo].[Messages] ([Id])
 );
