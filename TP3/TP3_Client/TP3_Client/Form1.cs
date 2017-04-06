@@ -21,7 +21,10 @@ namespace TP3_Client
         private void button1_Click(object sender, EventArgs e)
         {
             Client client = new Client();            
-            client.Connect(textBox1.Text, 42);
+            if (client.Connect(TB_IpAdress.Text, Int32.Parse(TB_Port.Text), TB_Username.Text, TB_Password.Text))
+                MessageBox.Show("GRANTED");
+            else
+                MessageBox.Show("DENIED");
             Thread.Sleep(100);
             client.Disconnect();
         }

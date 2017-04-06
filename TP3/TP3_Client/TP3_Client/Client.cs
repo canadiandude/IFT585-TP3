@@ -35,10 +35,10 @@ namespace TP3_Client
             socket.Send(data, data.Length, 0);
         }
 
-        public void Connect(String ipAdress, int port)
+        public bool Connect(String ipAdress, int port, String name, String pwd)
         {
             socket.Connect(new IPEndPoint(IPAddress.Parse(ipAdress), port));
-            Send(Name);
+            return ValidateCredentials(name, pwd);
         }
 
         public void Disconnect()
@@ -51,6 +51,13 @@ namespace TP3_Client
         public void SendMessage(String msg)
         {
             Send("MSG:" + msg);
+        }
+
+        private bool ValidateCredentials(String name, String pwd)
+        {
+            Send(String.Format("{0}:{1}", name, pwd));
+            String response = Receive();
+            return response == "GRANTED";
         }
     }
 }

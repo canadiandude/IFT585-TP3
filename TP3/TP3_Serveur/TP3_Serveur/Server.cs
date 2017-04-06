@@ -31,6 +31,7 @@ namespace TP3_Serveur
 
             database = new Database();
             database.TestConnection();
+            Console.WriteLine("---------- SERVER READY ----------");
         }
 
         private void CheckForNewConnection()
@@ -38,9 +39,24 @@ namespace TP3_Serveur
             while (true)
             {
                 ClientConnection connection = new ClientConnection(serverSocket.Accept());
-                connectedClients.Add(connection);
-                Console.WriteLine("SERVER   | {0} has connected", connection.Name);
-                Console.WriteLine("SERVER   | {0} clients connected", connectedClients.Count);
+                String[] credentials = connection.Receive().Split(':');
+                Console.WriteLine("SERVER   | new connection with credentials : {0}/{1}", credentials[0], credentials[1]);
+
+                if (Authenticate(credentials[0], credentials[1]))
+                {
+                    connection.Name = credentials[0];
+                    connectedClients.Add(connection);
+                    Console.WriteLine("SERVER   | GRANTED", connection.Name);
+                    Console.WriteLine("SERVER   | {0} clients connected", connectedClients.Count);
+                    connection.Send("GRANTED");
+                }
+                else
+                {
+                    Console.WriteLine("SERVER   | DENIED", connection.Name);
+                    connection.Send("DENIED");
+                    connection.Disconnect();
+                }
+
             }
         }
 
@@ -102,6 +118,11 @@ namespace TP3_Serveur
             {
                 client.Send(msg);
             }
+        }
+
+        private bool Authenticate(String name, String pwd)
+        {
+            return database.IsValidCredentials(name, pwd);
         }
     }
 }

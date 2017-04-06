@@ -9,7 +9,7 @@ namespace TP3_Serveur
 {
     class ClientConnection
     {
-        public String Name { get; }
+        public String Name;
         private Socket socket;
 
         public static readonly int MAX_DATA_SIZE = 256;
@@ -18,7 +18,6 @@ namespace TP3_Serveur
         {
             socket = s;
             s.ReceiveTimeout = 100;
-            Name = Receive();
         }
 
         public String Receive()

@@ -43,6 +43,16 @@ namespace TP3_Serveur
             Disconnect();
         }
 
+        private void ExecuteQuery(String cmd, Action<SqlDataReader> callback)
+        {
+            Connect();
+            SqlCommand sqlCmd = new SqlCommand(cmd, connection);
+            SqlDataReader reader = sqlCmd.ExecuteReader();
+            callback(reader);
+            reader.Close();
+            Disconnect();
+        }
+
         public void TestConnection()
         {
             Connect();
@@ -53,6 +63,16 @@ namespace TP3_Serveur
         public void CreateUser(String name, String pwd)
         {
             ExecuteNonQuery(String.Format("INSERT INTO Users (Name, Password) VALUES ('{0}','{1}');", name, pwd));
+        }
+
+        public bool IsValidCredentials(String name, String pwd)
+        {
+            bool isValid = false;
+            String query = String.Format("SELECT Id,Name FROM Users WHERE Name='{0}' AND Password='{1}'", name, pwd);
+            ExecuteQuery(query, reader => {
+                isValid = reader.HasRows;
+            });
+            return isValid;
         }
     }
 }
