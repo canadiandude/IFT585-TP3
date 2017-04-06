@@ -9,6 +9,7 @@ namespace TP3_Serveur
 {
     class ClientConnection
     {
+        public int Id;
         public String Name;
         private Socket socket;
 

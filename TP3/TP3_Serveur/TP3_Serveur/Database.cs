@@ -15,14 +15,17 @@ namespace TP3_Serveur
         public Database()
         {
             String path = Environment.CurrentDirectory.Replace("bin\\Debug", "");
-            connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+path+"TP3DB.mdf;Integrated Security=True;Connect Timeout=30";
+            connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + path + "TP3DB.mdf;Integrated Security=True;Connect Timeout=30";
             connection = null;
         }
 
         private void Connect()
         {
-            connection = new SqlConnection(connectionString);
-            connection.Open();
+            if (connection == null)
+            {
+                connection = new SqlConnection(connectionString);
+                connection.Open();
+            }
         }
 
         private void Disconnect()
@@ -65,14 +68,74 @@ namespace TP3_Serveur
             ExecuteNonQuery(String.Format("INSERT INTO Users (Name, Password) VALUES ('{0}','{1}');", name, pwd));
         }
 
-        public bool IsValidCredentials(String name, String pwd)
+        public void CreateChatroom(String title, String description)
         {
-            bool isValid = false;
-            String query = String.Format("SELECT Id,Name FROM Users WHERE Name='{0}' AND Password='{1}'", name, pwd);
-            ExecuteQuery(query, reader => {
-                isValid = reader.HasRows;
+            ExecuteNonQuery(String.Format("INSERT INTO Chatrooms (Title, Description) VALUES ('{0}','{1}');", title, description));
+        }
+
+        public void JoinChatroom(int userId, int chatroomId)
+        {
+            ExecuteNonQuery(String.Format("INSERT INTO UsersChatrooms (UserId, ChatroomId) VALUES ({0},{1});", userId, chatroomId));
+        }
+
+        public void CreateMessage(String message, int userId, int chatroomId)
+        {
+            ExecuteNonQuery(
+                String.Format("INSERT INTO Messages (Message, UserId, ChatroomId, Timestamp) VALUES ('{0}',{1},{2},'{3}');",
+                message, userId, chatroomId, DateTime.Now)
+           );
+        }
+
+        public int GetUserId(String name, String pwd)
+        {
+            int userID = -1;
+            String query = String.Format("SELECT Id FROM Users WHERE Name='{0}' AND Password='{1}'", name, pwd);
+            ExecuteQuery(query, reader =>
+            {
+                if (reader.Read())
+                {
+                    userID = reader.GetInt32(0);
+                }
             });
-            return isValid;
+            return userID;
+        }
+
+        public List<Chatroom> LoadChatrooms()
+        {
+            List<Chatroom> chatrooms = new List<Chatroom>();
+
+            String query = "SELECT * FROM Chatrooms";
+            ExecuteQuery(query, reader =>
+            {
+                while (reader.Read())
+                {
+                    chatrooms.Add(new Chatroom(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
+                }
+            });
+
+            foreach (Chatroom room in chatrooms)
+            {
+                room.Messages = LoadMessages(room.Id);
+            }
+
+            return chatrooms;
+        }
+
+        private List<String> LoadMessages(int chatroomId)
+        {
+            List<String> messages = new List<String>();
+
+            String query = String.Format("SELECT Message, UserID, Timestamp FROM Messages WHERE ChatroomId={0}", chatroomId);
+            ExecuteQuery(query, reader =>
+            {
+                while (reader.Read())
+                {
+                    // TODO - REwork index
+                    messages.Add(String.Concat("User #", reader.GetInt32(1), "-", reader.GetDateTime(2), " : ", reader.GetString(0)));
+                }
+            });
+
+            return messages;
         }
     }
 }

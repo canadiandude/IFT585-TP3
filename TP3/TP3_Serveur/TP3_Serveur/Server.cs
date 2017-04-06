@@ -15,11 +15,16 @@ namespace TP3_Serveur
         private Socket serverSocket;
         private Thread connectionListener;
         private Database database;
+        private List<Chatroom> chatrooms;
 
-        public Server(String ipAdress, int port)
+        public Server()
         {
             connectedClients = new List<ClientConnection>();
+            database = new Database();
+        }
 
+        public void Start(String ipAdress, int port)
+        {
             serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             serverSocket.Bind(new IPEndPoint(IPAddress.Parse(ipAdress), port));
             serverSocket.Listen(10);
@@ -29,21 +34,25 @@ namespace TP3_Serveur
             connectionListener.Start();
             Console.WriteLine("Connection listener started");
 
-            database = new Database();
             database.TestConnection();
+            LoadChatrooms();
+
             Console.WriteLine("---------- SERVER READY ----------");
         }
 
         private void CheckForNewConnection()
         {
+            int userId = -1;
             while (true)
             {
                 ClientConnection connection = new ClientConnection(serverSocket.Accept());
                 String[] credentials = connection.Receive().Split(':');
                 Console.WriteLine("SERVER   | new connection with credentials : {0}/{1}", credentials[0], credentials[1]);
 
-                if (Authenticate(credentials[0], credentials[1]))
+                userId = database.GetUserId(credentials[0], credentials[1]);
+                if (userId != -1)
                 {
+                    connection.Id = userId;
                     connection.Name = credentials[0];
                     connectedClients.Add(connection);
                     Console.WriteLine("SERVER   | GRANTED", connection.Name);
@@ -120,9 +129,12 @@ namespace TP3_Serveur
             }
         }
 
-        private bool Authenticate(String name, String pwd)
+        private void LoadChatrooms()
         {
-            return database.IsValidCredentials(name, pwd);
+            Console.WriteLine("Loading chatrooms...");
+            chatrooms = database.LoadChatrooms();
+            Console.WriteLine("{0} chatrooms loaded", chatrooms.Count);
+            Console.WriteLine(chatrooms[0].ToString());
         }
     }
 }
