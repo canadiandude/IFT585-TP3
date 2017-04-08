@@ -10,3 +10,9 @@ C:\Users\Francois\Documents\GitHub\IFT585-TP3\TP3\TP3_Serveur\TP3_Serveur\obj\De
 C:\Users\Francois\Documents\GitHub\IFT585-TP3\TP3\TP3_Serveur\TP3_Serveur\bin\Debug\TP3_Serveur.exe
 C:\Users\Francois\Documents\GitHub\IFT585-TP3\TP3\TP3_Serveur\TP3_Serveur\bin\Debug\TP3_Serveur.pdb
 C:\Users\Francois\Documents\GitHub\IFT585-TP3\TP3\TP3_Serveur\TP3_Serveur\obj\Debug\TP3_Serveur.csprojResolveAssemblyReference.cache
+C:\Users\Pluto\Thealoe\IFT585-TP3\TP3\TP3_Serveur\TP3_Serveur\bin\Debug\TP3_Serveur.exe.config
+C:\Users\Pluto\Thealoe\IFT585-TP3\TP3\TP3_Serveur\TP3_Serveur\obj\Debug\TP3_Serveur.exe
+C:\Users\Pluto\Thealoe\IFT585-TP3\TP3\TP3_Serveur\TP3_Serveur\obj\Debug\TP3_Serveur.pdb
+C:\Users\Pluto\Thealoe\IFT585-TP3\TP3\TP3_Serveur\TP3_Serveur\bin\Debug\TP3_Serveur.exe
+C:\Users\Pluto\Thealoe\IFT585-TP3\TP3\TP3_Serveur\TP3_Serveur\bin\Debug\TP3_Serveur.pdb
+C:\Users\Pluto\Thealoe\IFT585-TP3\TP3\TP3_Serveur\TP3_Serveur\obj\Debug\TP3_Serveur.csprojResolveAssemblyReference.cache
