@@ -16,7 +16,7 @@ namespace TP3_Client
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmLogin());
+            Application.Run(new Form1());
         }
     }
 }

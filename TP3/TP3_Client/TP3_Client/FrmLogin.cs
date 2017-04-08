@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace TP3_Client
 {
-    public partial class FrmLogin : Form
+    public partial class Form1 : Form
     {
-        public FrmLogin()
+        public Form1()
         {
             InitializeComponent();
         }
@@ -26,8 +26,7 @@ namespace TP3_Client
                 MessageBox.Show("GRANTED");
                 client.Send("FETCH_CHATROOMS");
                 Thread.Sleep(100);
-                string receive = client.Receive();
-                MessageBox.Show(receive);
+                MessageBox.Show(client.Receive());
             }
             else
                 MessageBox.Show("DENIED");
