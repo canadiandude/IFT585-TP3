@@ -125,7 +125,7 @@ namespace TP3_Serveur
         {
             List<String> messages = new List<String>();
 
-            String query = @"SELECT Message, UserID, Name, Timestamp FROM Messages
+            String query = @"SELECT Message, UserID, Name, Timestamp, Messages.Id FROM Messages
                             INNER JOIN Users ON Users.Id=Messages.UserId 
                             WHERE ChatroomId={0}";
             query = String.Format(query, chatroomId);
@@ -135,9 +135,10 @@ namespace TP3_Serveur
                 {
                     String message = reader.GetString(0);
                     int userId = reader.GetInt32(1);
-                    String name = reader.GetString(2);
-                    DateTime timestamp = reader.GetDateTime(3);
-                    messages.Add(String.Concat(name, "(", userId, ") ", timestamp, " : ", message));
+                    String user = reader.GetString(2);
+                    String timestamp = reader.GetDateTime(3).ToString();
+                    int messageId = reader.GetInt32(4);
+                    messages.Add(String.Join("|", "M", messageId, 0, user, timestamp, message));
                 }
             });
 

@@ -45,3 +45,5 @@ CREATE TABLE [dbo].[Likes] (
     FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users] ([Id]),
     FOREIGN KEY ([MessageId]) REFERENCES [dbo].[Messages] ([Id])
 );
+INSERT INTO Users (Name, Password) VALUES ('jack','a');
+INSERT INTO Users (Name, Password) VALUES ('john','a');

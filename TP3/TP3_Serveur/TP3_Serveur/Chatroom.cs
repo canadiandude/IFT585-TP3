@@ -22,7 +22,7 @@ namespace TP3_Serveur
 
         public override string ToString()
         {
-            String str = Title + " - " + Description + "\n";
+            String str = String.Join("|", "C", Id, Title, Description) + "\n";
             foreach (String m in Messages)
             {
                 str += m + "\n";
