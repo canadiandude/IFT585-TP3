@@ -63,8 +63,16 @@ namespace TP3_Client
             } catch (ApplicationException ex) {
                 client.Disconnect();
             }
-            MessageBox.Show(chatrooms.ToString());
+            FillListBoxes();
         }
+
+        private void FillListBoxes() {
+            foreach (Chatroom c in chatrooms)
+            {
+                lbRooms.Items.Add(c.Titre);
+            }
+        }
+
         private void InitChatBox()
         {
             ChatBox.View = View.Details;
