@@ -25,3 +25,4 @@ C:\Users\Pluto\Thealoe\IFT585-TP3\TP3\TP3_Client\TP3_Client\obj\Debug\TP3_Client
 C:\Users\Pluto\Thealoe\IFT585-TP3\TP3\TP3_Client\TP3_Client\obj\Debug\TP3_Client.Form1.resources
 C:\Users\Pluto\Thealoe\IFT585-TP3\TP3\TP3_Client\TP3_Client\obj\Debug\TP3_Client.Properties.Resources.resources
 C:\Users\Pluto\Thealoe\IFT585-TP3\TP3\TP3_Client\TP3_Client\obj\Debug\TP3_Client.csproj.GenerateResource.Cache
+C:\Users\Pluto\Thealoe\IFT585-TP3\TP3\TP3_Client\TP3_Client\obj\Debug\TP3_Client.FrmChatroom.resources
