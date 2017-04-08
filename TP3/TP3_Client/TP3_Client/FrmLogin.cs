@@ -27,14 +27,14 @@ namespace TP3_Client
                 bool connect = client.Connect(TB_IpAdress.Text, Int32.Parse(TB_Port.Text), TB_Username.Text, TB_Password.Text);
                 if (connect)
                 {
-                    MessageBox.Show("GRANTED");
                     FrmChatroom frmChatroom = new FrmChatroom(client);
                     this.Hide();
                     frmChatroom.ShowDialog();
+                    MessageBox.Show("Jtrop pas desolé");
+                    this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("DENIED");
                     Thread.Sleep(100);
                     client.Disconnect();
                 }
