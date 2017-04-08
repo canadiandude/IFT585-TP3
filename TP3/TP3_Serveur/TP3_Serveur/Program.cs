@@ -11,7 +11,10 @@ namespace TP3_Serveur
         static void Main(string[] args)
         {
             Server server = new Server();
-            server.Start(args[0], int.Parse(args[1]));
+            if (args.Length == 2)
+                server.Start(args[0], int.Parse(args[1]));
+            else
+                server.Start("127.0.0.1", 42);
             while (true)
             {
                 server.ReceiveFromClients();

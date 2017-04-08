@@ -48,7 +48,7 @@ namespace TP3_Serveur
             while (true)
             {
                 ClientConnection connection = new ClientConnection(serverSocket.Accept());
-                String[] credentials = connection.Receive().Split(':');
+                String[] credentials = connection.Receive().Split('|');
                 Console.WriteLine("SERVER   | new connection with credentials : {0}/{1}", credentials[0], credentials[1]);
 
                 userId = database.GetUserId(credentials[0], credentials[1]);
@@ -107,7 +107,7 @@ namespace TP3_Serveur
         private void HandleCommand(ClientConnection client, String cmd)
         {
             Console.WriteLine("SERVER   | {0} sent \"{1}\"", client.Name, cmd);
-            String[] cmdParams = cmd.Split(':');
+            String[] cmdParams = cmd.Split('|');
 
             switch (cmdParams[0])
             {
@@ -158,7 +158,7 @@ namespace TP3_Serveur
             {
                 if (chatroomsId.Contains(room.Id))
                 {
-                    payload += room.ToString() + ";";
+                    payload += room.ToString();
                 }
             }
 
