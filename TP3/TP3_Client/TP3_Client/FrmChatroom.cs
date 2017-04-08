@@ -21,6 +21,7 @@ namespace TP3_Client
             client = c;
             chatrooms = new List<Chatroom>();
             FetchChatroom();
+            InitChatBox();
         }
 
         public void FetchChatroom()
@@ -68,18 +69,34 @@ namespace TP3_Client
         {
             ChatBox.View = View.Details;
             // Add a column with width 20 and left alignment.
-            ChatBox.Columns.Add("Utilisateur", ChatBox.Size.Width*20/100, HorizontalAlignment.Left);
-            ChatBox.Columns.Add("Date", ChatBox.Size.Width*15/100, HorizontalAlignment.Left);
+            ChatBox.Columns.Add("UserID", 0, HorizontalAlignment.Left);
+            ChatBox.Columns.Add("MessageID", 0, HorizontalAlignment.Left);
+            ChatBox.Columns[0].Width = 0;
+            ChatBox.Columns[1].Width = 0;
+
+            ChatBox.Columns.Add("Utilisateur", ChatBox.Size.Width * 20 / 100, HorizontalAlignment.Left);
+            ChatBox.Columns.Add("Date", ChatBox.Size.Width * 15 / 100, HorizontalAlignment.Left);
             ChatBox.Columns.Add("Message", ChatBox.Size.Width * 55 / 100, HorizontalAlignment.Left);
             ChatBox.Columns.Add("Like", ChatBox.Size.Width * 10 / 100, HorizontalAlignment.Left);
-            AddMessage("Alex",DateTime.Now,"test",3);
+            AddMessage("123", "456", "Alex", DateTime.Now, "test", 3);
         }
-        public void AddMessage(String User,DateTime time,String Message,int like)
+        public void AddMessage(String UserID, String MsgID, String User, DateTime time, String Message, int like)
         {
-            string[] row = { User, time.ToString() ,Message,like.ToString()};
+            string[] row = { UserID, MsgID, User, time.ToString(), Message, like.ToString() };
             var listViewItem = new ListViewItem(row);
             ChatBox.Items.Add(listViewItem);
             //ChatBox.Items.Add("test");
+        }
+
+        private void ChatBox_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
+        {
+            //This will try hiding the column at index 1
+            //ColumnWidthChanging event handler of your ListView
+            if (e.ColumnIndex == 1 || e.ColumnIndex == 0)
+            {
+                e.Cancel = true;
+                e.NewWidth = 0;
+            }
         }
 
         private void FrmChatroom_FormClosing(object sender, FormClosingEventArgs e)
