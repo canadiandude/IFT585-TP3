@@ -52,7 +52,19 @@ namespace TP3_Serveur
                 Console.WriteLine("SERVER   | new connection with credentials : {0}/{1}", credentials[0], credentials[1]);
 
                 userId = database.GetUserId(credentials[0], credentials[1]);
-                if (userId != -1)
+                if (userId == -1)
+                {
+                    Console.WriteLine("SERVER   | DENIED - INVALID CREDENTIALS", connection.Name);
+                    connection.Send("DENIED_INVALID_CREDENTIALS");
+                    connection.Disconnect();
+                }
+                else if (UserAlreadyConnected(userId))
+                {
+                    Console.WriteLine("SERVER   | DENIED - ALREADY CONNECTED", connection.Name);
+                    connection.Send("DENIED_ALREADY_CONNECTED");
+                    connection.Disconnect();
+                }
+                else
                 {
                     connection.Id = userId;
                     connection.Name = credentials[0];
@@ -63,12 +75,6 @@ namespace TP3_Serveur
                     Console.WriteLine("SERVER   | GRANTED", connection.Name);
                     Console.WriteLine("SERVER   | {0} clients connected", connectedClients.Count);
                     connection.Send("GRANTED");
-                }
-                else
-                {
-                    Console.WriteLine("SERVER   | DENIED", connection.Name);
-                    connection.Send("DENIED");
-                    connection.Disconnect();
                 }
 
             }
@@ -179,5 +185,14 @@ namespace TP3_Serveur
             client.Send(String.Join("\n", allUsers));
         }
 
+        private bool UserAlreadyConnected(int userId)
+        {
+            foreach (ClientConnection c in connectedClients)
+            {
+                if (c.Id == userId)
+                    return true;
+            }
+            return false;
+        }
     }
 }
