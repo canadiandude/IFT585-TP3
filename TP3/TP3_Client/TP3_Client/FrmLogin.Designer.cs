@@ -57,7 +57,7 @@
             this.TB_IpAdress.Name = "TB_IpAdress";
             this.TB_IpAdress.Size = new System.Drawing.Size(132, 22);
             this.TB_IpAdress.TabIndex = 1;
-            this.TB_IpAdress.Text = "192.168.21.2";
+            this.TB_IpAdress.Text = "192.168.2.21";
             // 
             // label1
             // 
@@ -143,6 +143,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

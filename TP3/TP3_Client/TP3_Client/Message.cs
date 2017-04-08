@@ -8,16 +8,10 @@ namespace TP3_Client
 {
     class Message
     {
-        private List<string> likes;
+        public int Id { get; set; }
         public string Username { get; set; }
         public string Content { get; set; }
-        public List<string> Likes {
-            get {
-                if (likes == null)
-                    likes = new List<string>();
-                return likes;
-            }
-            set { likes = value; }
-        }
+        public int Likes { get; set; }
+        public DateTime Date { get; set; }
     }
 }

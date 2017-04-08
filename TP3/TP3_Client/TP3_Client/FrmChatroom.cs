@@ -19,6 +19,8 @@ namespace TP3_Client
         {
             InitializeComponent();
             client = c;
+            chatrooms = new List<Chatroom>();
+            FetchChatroom();
         }
 
         public void FetchChatroom()
@@ -27,16 +29,40 @@ namespace TP3_Client
             Thread.Sleep(100);
             string receive = client.Receive();
             MessageBox.Show(receive);
+            Chatroom currentChatroom = null;
             string[] lineSplit = receive.Split('\n');
-            foreach (string obj in lineSplit)
-            {
-                string[] propsSplit = obj.Split('|');
-                Chatroom currentChatroom = new Chatroom();
-                for (int i = 0; i < propsSplit.Length; i++)
+            try {
+                for(int i = 0; i < lineSplit.Length; i++)
                 {
-                    
+                    string[] propsSplit = lineSplit[i].Split('|');
+                    if (propsSplit[0] == "C")
+                    {
+                        if (currentChatroom != null)
+                            chatrooms.Add(currentChatroom);
+                        currentChatroom = new Chatroom();
+                        currentChatroom.Id = int.Parse(propsSplit[1]);
+                        currentChatroom.Titre = propsSplit[2];
+                        currentChatroom.Desc = propsSplit[3];
+                    }
+                    if (propsSplit[0] == "M")
+                    {
+                        Message m = new Message();
+                        m.Id = int.Parse(propsSplit[1]);
+                        m.Likes = int.Parse(propsSplit[2]);
+                        m.Username = propsSplit[3];
+                        m.Date = Convert.ToDateTime(propsSplit[4].ToString());
+                        m.Content = propsSplit[5];
+                        currentChatroom.MessageList.Add(m);
+                    }
+                    if (lineSplit.Length-1 == i) {
+                        if (chatrooms != null)
+                            chatrooms.Add(currentChatroom);
+                    }
                 }
+            } catch (ApplicationException ex) {
+                client.Disconnect();
             }
+            MessageBox.Show(chatrooms.ToString());
         }
         private void InitChatBox()
         {
@@ -56,5 +82,9 @@ namespace TP3_Client
             //ChatBox.Items.Add("test");
         }
 
+        private void FrmChatroom_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            client.Disconnect();
+        }
     }
 }

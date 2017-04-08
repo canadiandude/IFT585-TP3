@@ -13,14 +13,15 @@ namespace TP3_Client
 {
     public partial class Form1 : Form
     {
+        Client client;
         public Form1()
         {
+            client = new Client();
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Client client = new Client();
             try
             {
                 bool connect = client.Connect(TB_IpAdress.Text, Int32.Parse(TB_Port.Text), TB_Username.Text, TB_Password.Text);
@@ -42,6 +43,11 @@ namespace TP3_Client
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            client.Disconnect();
         }
     }
 }
