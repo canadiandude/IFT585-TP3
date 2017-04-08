@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Net;
 using System.Net.Sockets;
+using System.IO;
 
 namespace TP3_Client
 {
@@ -58,6 +59,10 @@ namespace TP3_Client
             Send(String.Format("{0}:{1}", name, pwd));
             String response = Receive();
             return response == "GRANTED";
+        }
+
+        private string ObjectToJSON(Object o) {
+            return "";
         }
     }
 }

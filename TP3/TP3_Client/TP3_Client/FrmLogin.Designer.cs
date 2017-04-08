@@ -1,6 +1,6 @@
 ﻿namespace TP3_Client
 {
-    partial class Form1
+    partial class FrmLogin
     {
         /// <summary>
         /// Required designer variable.
@@ -42,7 +42,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(147, 135);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
             this.button1.TabIndex = 0;
@@ -53,11 +53,11 @@
             // TB_IpAdress
             // 
             this.TB_IpAdress.Location = new System.Drawing.Point(113, 7);
-            this.TB_IpAdress.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_IpAdress.Margin = new System.Windows.Forms.Padding(4);
             this.TB_IpAdress.Name = "TB_IpAdress";
             this.TB_IpAdress.Size = new System.Drawing.Size(132, 22);
             this.TB_IpAdress.TabIndex = 1;
-            this.TB_IpAdress.Text = "127.0.0.1";
+            this.TB_IpAdress.Text = "192.168.2.21";
             // 
             // label1
             // 
@@ -82,7 +82,7 @@
             // TB_Port
             // 
             this.TB_Port.Location = new System.Drawing.Point(113, 39);
-            this.TB_Port.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_Port.Margin = new System.Windows.Forms.Padding(4);
             this.TB_Port.Name = "TB_Port";
             this.TB_Port.Size = new System.Drawing.Size(132, 22);
             this.TB_Port.TabIndex = 4;
@@ -91,11 +91,11 @@
             // TB_Username
             // 
             this.TB_Username.Location = new System.Drawing.Point(113, 71);
-            this.TB_Username.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_Username.Margin = new System.Windows.Forms.Padding(4);
             this.TB_Username.Name = "TB_Username";
             this.TB_Username.Size = new System.Drawing.Size(132, 22);
             this.TB_Username.TabIndex = 5;
-            this.TB_Username.Text = "qwe";
+            this.TB_Username.Text = "jack";
             // 
             // label3
             // 
@@ -110,11 +110,11 @@
             // TB_Password
             // 
             this.TB_Password.Location = new System.Drawing.Point(113, 103);
-            this.TB_Password.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_Password.Margin = new System.Windows.Forms.Padding(4);
             this.TB_Password.Name = "TB_Password";
             this.TB_Password.Size = new System.Drawing.Size(132, 22);
             this.TB_Password.TabIndex = 5;
-            this.TB_Password.Text = "qwe";
+            this.TB_Password.Text = "a";
             // 
             // label4
             // 
@@ -126,7 +126,7 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "Password :";
             // 
-            // Form1
+            // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -140,8 +140,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TB_IpAdress);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Name = "Form1";
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "FrmLogin";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
