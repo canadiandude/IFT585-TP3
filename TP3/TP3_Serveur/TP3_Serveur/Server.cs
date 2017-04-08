@@ -16,11 +16,13 @@ namespace TP3_Serveur
         private Thread connectionListener;
         private Database database;
         private List<Chatroom> chatrooms;
+        private Object connectionLock;
 
         public Server()
         {
             connectedClients = new List<ClientConnection>();
             database = new Database();
+            connectionLock = new Object();
         }
 
         public void Start(String ipAdress, int port)
@@ -54,7 +56,10 @@ namespace TP3_Serveur
                 {
                     connection.Id = userId;
                     connection.Name = credentials[0];
-                    connectedClients.Add(connection);
+                    lock (connectionLock)
+                    {
+                        connectedClients.Add(connection);
+                    }
                     Console.WriteLine("SERVER   | GRANTED", connection.Name);
                     Console.WriteLine("SERVER   | {0} clients connected", connectedClients.Count);
                     connection.Send("GRANTED");
@@ -79,7 +84,12 @@ namespace TP3_Serveur
             // Faire une copie de la liste pour eviter les problemes quand on 
             // enleve une connexion de la liste
             // Solution alternative : iterer a l'envers
-            foreach (ClientConnection client in connectedClients.ToArray())
+            ClientConnection[] copy;
+            lock (connectionLock)
+            {
+                copy = connectedClients.ToArray();
+            }
+            foreach (ClientConnection client in copy)
             {
                 try
                 {
@@ -143,18 +153,13 @@ namespace TP3_Serveur
         private void SendChatrooms(ClientConnection client)
         {
             List<int> chatroomsId = database.GetChatroomsForUser(client.Id);
-            List<Chatroom> usersChatrooms = new List<Chatroom>();
             String payload = "";
             foreach (Chatroom room in chatrooms)
             {
                 if (chatroomsId.Contains(room.Id))
                 {
-                    usersChatrooms.Add(room);
+                    payload += room.ToString() + ";";
                 }
-            }
-            foreach (Chatroom room in usersChatrooms)
-            {
-                payload += room.ToString() + ";";
             }
 
             client.Send(payload);
