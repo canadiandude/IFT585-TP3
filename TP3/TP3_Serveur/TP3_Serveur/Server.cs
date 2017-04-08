@@ -112,7 +112,7 @@ namespace TP3_Serveur
             switch (cmdParams[0])
             {
                 case "MSG":
-                    SendMessage(client.Name + " : " + String.Join(":", cmdParams.Skip(1)));
+                    SendMessage(client.Name + " : " + String.Join("|", cmdParams.Skip(1)));
                     break;
                 case "DISCONNECT":
                     DisconnectClient(client);
@@ -147,7 +147,6 @@ namespace TP3_Serveur
             Console.WriteLine("Loading chatrooms...");
             chatrooms = database.LoadChatrooms();
             Console.WriteLine("{0} chatrooms loaded", chatrooms.Count);
-            Console.WriteLine(chatrooms[0].ToString());
         }
 
         private void SendChatrooms(ClientConnection client)
@@ -164,5 +163,21 @@ namespace TP3_Serveur
 
             client.Send(payload);
         }
+
+        private void SendOnlineUsers(ClientConnection client)
+        {
+            List<String> allUsers = database.ListUsers();
+            List<String> onlineUsers = new List<String>();
+            foreach (ClientConnection c in connectedClients)
+            {
+                onlineUsers.Add(c.Name);
+            }
+            for (int i = 0; i < allUsers.Count; ++i)
+            {
+                allUsers[i] += onlineUsers.Contains(allUsers[i]) ? "|O" : "|N";
+            }
+            client.Send(String.Join("\n", allUsers));
+        }
+
     }
 }

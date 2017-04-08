@@ -21,7 +21,7 @@ namespace TP3_Client
             client = c;
         }
 
-        public void FetChatroom()
+        public void FetchChatroom()
         {
             client.Send("FETCH_CHATROOMS");
             Thread.Sleep(100);

@@ -20,19 +20,28 @@ namespace TP3_Client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Client client = new Client();            
-            if (client.Connect(TB_IpAdress.Text, Int32.Parse(TB_Port.Text), TB_Username.Text, TB_Password.Text))
+            Client client = new Client();
+            try
             {
-                MessageBox.Show("GRANTED");
-                FrmChatroom frmChatroom = new FrmChatroom(client);
-                this.Hide();
-                frmChatroom.ShowDialog();
+                bool connect = client.Connect(TB_IpAdress.Text, Int32.Parse(TB_Port.Text), TB_Username.Text, TB_Password.Text);
+                if (connect)
+                {
+                    MessageBox.Show("GRANTED");
+                    FrmChatroom frmChatroom = new FrmChatroom(client);
+                    this.Hide();
+                    frmChatroom.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("DENIED");
+                    Thread.Sleep(100);
+                    client.Disconnect();
+                }
             }
-            else
-                MessageBox.Show("DENIED");
-            Thread.Sleep(100);
-
-            client.Disconnect();
+            catch (ApplicationException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

@@ -119,7 +119,7 @@ namespace TP3_Serveur
             }
 
             return chatrooms;
-        }    
+        }
 
         private List<String> LoadMessages(int chatroomId)
         {
@@ -158,6 +158,20 @@ namespace TP3_Serveur
             });
 
             return chatroomsId;
+        }
+
+        public List<String> ListUsers()
+        {
+            List<String> users = new List<String>();
+            ExecuteQuery("SELECT Name FROM Users", reader =>
+            {
+                while (reader.Read())
+                {
+                    users.Add(reader.GetString(0));
+                }
+            });
+
+            return users;
         }
     }
 }
