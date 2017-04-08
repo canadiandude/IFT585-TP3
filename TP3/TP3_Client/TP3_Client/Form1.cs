@@ -22,10 +22,16 @@ namespace TP3_Client
         {
             Client client = new Client();            
             if (client.Connect(TB_IpAdress.Text, Int32.Parse(TB_Port.Text), TB_Username.Text, TB_Password.Text))
+            {
                 MessageBox.Show("GRANTED");
+                client.Send("FETCH_CHATROOMS");
+                Thread.Sleep(100);
+                MessageBox.Show(client.Receive());
+            }
             else
                 MessageBox.Show("DENIED");
             Thread.Sleep(100);
+
             client.Disconnect();
         }
     }

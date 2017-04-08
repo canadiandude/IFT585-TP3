@@ -119,23 +119,44 @@ namespace TP3_Serveur
             }
 
             return chatrooms;
-        }
+        }    
 
         private List<String> LoadMessages(int chatroomId)
         {
             List<String> messages = new List<String>();
 
-            String query = String.Format("SELECT Message, UserID, Timestamp FROM Messages WHERE ChatroomId={0}", chatroomId);
+            String query = @"SELECT Message, UserID, Name, Timestamp FROM Messages
+                            INNER JOIN Users ON Users.Id=Messages.UserId 
+                            WHERE ChatroomId={0}";
+            query = String.Format(query, chatroomId);
             ExecuteQuery(query, reader =>
             {
                 while (reader.Read())
                 {
-                    // TODO - REwork index
-                    messages.Add(String.Concat("User #", reader.GetInt32(1), "-", reader.GetDateTime(2), " : ", reader.GetString(0)));
+                    String message = reader.GetString(0);
+                    int userId = reader.GetInt32(1);
+                    String name = reader.GetString(2);
+                    DateTime timestamp = reader.GetDateTime(3);
+                    messages.Add(String.Concat(name, "(", userId, ") ", timestamp, " : ", message));
                 }
             });
 
             return messages;
+        }
+
+        public List<int> GetChatroomsForUser(int userId)
+        {
+            List<int> chatroomsId = new List<int>();
+            String query = String.Format("SELECT ChatroomId FROM UsersChatrooms WHERE UserId={0}", userId);
+            ExecuteQuery(query, reader =>
+            {
+                while (reader.Read())
+                {
+                    chatroomsId.Add(reader.GetInt32(0));
+                }
+            });
+
+            return chatroomsId;
         }
     }
 }

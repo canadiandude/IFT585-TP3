@@ -107,6 +107,9 @@ namespace TP3_Serveur
                 case "DISCONNECT":
                     DisconnectClient(client);
                     break;
+                case "FETCH_CHATROOMS":
+                    SendChatrooms(client);
+                    break;
                 default:
                     client.Send("ACK");
                     break;
@@ -135,6 +138,26 @@ namespace TP3_Serveur
             chatrooms = database.LoadChatrooms();
             Console.WriteLine("{0} chatrooms loaded", chatrooms.Count);
             Console.WriteLine(chatrooms[0].ToString());
+        }
+
+        private void SendChatrooms(ClientConnection client)
+        {
+            List<int> chatroomsId = database.GetChatroomsForUser(client.Id);
+            List<Chatroom> usersChatrooms = new List<Chatroom>();
+            String payload = "";
+            foreach (Chatroom room in chatrooms)
+            {
+                if (chatroomsId.Contains(room.Id))
+                {
+                    usersChatrooms.Add(room);
+                }
+            }
+            foreach (Chatroom room in usersChatrooms)
+            {
+                payload += room.ToString() + ";";
+            }
+
+            client.Send(payload);
         }
     }
 }
