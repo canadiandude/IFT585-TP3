@@ -55,7 +55,7 @@ namespace TP3_Client
 
         private bool ValidateCredentials(String name, String pwd)
         {
-            Send(String.Format("{0}:{1}", name, pwd));
+            Send(String.Format("{0}|{1}", name, pwd));
             String response = Receive();
             return response == "GRANTED";
         }

@@ -34,7 +34,7 @@ namespace TP3_Client
                 Chatroom currentChatroom = new Chatroom();
                 for (int i = 0; i < propsSplit.Length; i++)
                 {
-
+                    
                 }
             }
         }
