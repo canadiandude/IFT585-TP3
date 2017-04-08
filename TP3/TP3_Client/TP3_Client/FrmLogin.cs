@@ -24,9 +24,9 @@ namespace TP3_Client
             if (client.Connect(TB_IpAdress.Text, Int32.Parse(TB_Port.Text), TB_Username.Text, TB_Password.Text))
             {
                 MessageBox.Show("GRANTED");
-                client.Send("FETCH_CHATROOMS");
-                Thread.Sleep(100);
-                MessageBox.Show(client.Receive());
+                FrmChatroom frmChatroom = new FrmChatroom(client);
+                this.Hide();
+                frmChatroom.ShowDialog();
             }
             else
                 MessageBox.Show("DENIED");

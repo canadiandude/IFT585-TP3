@@ -9,7 +9,7 @@ using System.Net.Sockets;
 
 namespace TP3_Client
 {
-    class Client
+    public class Client
     {
         public String Name { get; }
         private Socket socket;

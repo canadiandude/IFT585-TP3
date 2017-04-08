@@ -26,3 +26,6 @@ C:\Users\Pluto\Thealoe\IFT585-TP3\TP3\TP3_Client\TP3_Client\obj\Debug\TP3_Client
 C:\Users\Pluto\Thealoe\IFT585-TP3\TP3\TP3_Client\TP3_Client\obj\Debug\TP3_Client.Properties.Resources.resources
 C:\Users\Pluto\Thealoe\IFT585-TP3\TP3\TP3_Client\TP3_Client\obj\Debug\TP3_Client.csproj.GenerateResource.Cache
 C:\Users\Pluto\Thealoe\IFT585-TP3\TP3\TP3_Client\TP3_Client\obj\Debug\TP3_Client.FrmChatroom.resources
+C:\Users\Pluto\Documents\UdeS\IFT585\IFT585-TP3\TP3\TP3_Client\TP3_Client\bin\Debug\TP3_Client.exe.config
+C:\Users\Pluto\Documents\UdeS\IFT585\IFT585-TP3\TP3\TP3_Client\TP3_Client\obj\Debug\TP3_Client.exe
+C:\Users\Pluto\Documents\UdeS\IFT585\IFT585-TP3\TP3\TP3_Client\TP3_Client\obj\Debug\TP3_Client.pdb
