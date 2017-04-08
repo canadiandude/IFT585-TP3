@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Net;
 using System.Net.Sockets;
+using System.Windows.Forms;
 
 namespace TP3_Client
 {
@@ -57,6 +58,7 @@ namespace TP3_Client
         {
             Send(String.Format("{0}|{1}", name, pwd));
             String response = Receive();
+            MessageBox.Show(response);
             return response == "GRANTED";
         }
     }
