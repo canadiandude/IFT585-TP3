@@ -79,6 +79,7 @@ namespace TP3_Client
             ChatBox.Columns.Add("Message", ChatBox.Size.Width * 55 / 100, HorizontalAlignment.Left);
             ChatBox.Columns.Add("Like", ChatBox.Size.Width * 10 / 100, HorizontalAlignment.Left);
             AddMessage("123", "456", "Alex", DateTime.Now, "test", 3);
+            AddMessage("246", "357", "john", DateTime.Now, "t fife", 3);
         }
         public void AddMessage(String UserID, String MsgID, String User, DateTime time, String Message, int like)
         {
@@ -102,6 +103,17 @@ namespace TP3_Client
         private void FrmChatroom_FormClosing(object sender, FormClosingEventArgs e)
         {
             client.Disconnect();
+        }
+
+        private void ChatBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (ChatBox.FocusedItem.Bounds.Contains(e.Location) == true)
+                {
+                    contextMenuStrip1.Show(Cursor.Position);
+                }
+            }
         }
     }
 }

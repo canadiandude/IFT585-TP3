@@ -144,12 +144,14 @@
             // 
             // ChatBox
             // 
+            this.ChatBox.ContextMenuStrip = this.contextMenuStrip1;
             this.ChatBox.Location = new System.Drawing.Point(187, 26);
             this.ChatBox.Name = "ChatBox";
             this.ChatBox.Size = new System.Drawing.Size(410, 411);
             this.ChatBox.TabIndex = 12;
             this.ChatBox.UseCompatibleStateImageBehavior = false;
             this.ChatBox.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.ChatBox_ColumnWidthChanging);
+            this.ChatBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ChatBox_MouseClick);
             // 
             // FrmChatroom
             // 
