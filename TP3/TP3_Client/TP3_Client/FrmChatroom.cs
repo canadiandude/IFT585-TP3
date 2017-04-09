@@ -46,49 +46,52 @@ namespace TP3_Client
             client.Send("FETCH_CHATROOMS");
             Thread.Sleep(100);
             string receive = client.Receive();
-            Chatroom currentChatroom = null;
-            string[] lineSplit = receive.Split('\n');
-            try
+            if (receive != "NONE")
             {
-                for (int i = 0; i < lineSplit.Length; i++)
+                Chatroom currentChatroom = null;
+                string[] lineSplit = receive.Split('\n');
+                try
                 {
-                    string[] propsSplit = lineSplit[i].Split('|');
-                    if (propsSplit[0] == "C")
+                    for (int i = 0; i < lineSplit.Length; i++)
                     {
-                        if (propsSplit.Length == 4)
+                        string[] propsSplit = lineSplit[i].Split('|');
+                        if (propsSplit[0] == "C")
                         {
-                            if (currentChatroom != null)
+                            if (propsSplit.Length == 4)
+                            {
+                                if (currentChatroom != null)
+                                    chatrooms.Add(currentChatroom);
+                                currentChatroom = new Chatroom();
+                                currentChatroom.Id = int.Parse(propsSplit[1]);
+                                currentChatroom.Titre = propsSplit[2];
+                                currentChatroom.Desc = propsSplit[3];
+                            }
+                        }
+                        if (propsSplit[0] == "M")
+                        {
+                            if (propsSplit.Length == 6)
+                            {
+                                Message m = new Message();
+                                m.Id = int.Parse(propsSplit[1]);
+                                m.Likes = int.Parse(propsSplit[2]);
+                                m.Username = propsSplit[3];
+                                m.Date = Convert.ToDateTime(propsSplit[4].ToString());
+                                m.Content = propsSplit[5];
+                                currentChatroom.MessageList.Add(m);
+                            }
+                        }
+                        if (lineSplit.Length - 1 == i)
+                        {
+                            if (chatrooms != null)
                                 chatrooms.Add(currentChatroom);
-                            currentChatroom = new Chatroom();
-                            currentChatroom.Id = int.Parse(propsSplit[1]);
-                            currentChatroom.Titre = propsSplit[2];
-                            currentChatroom.Desc = propsSplit[3];
                         }
                     }
-                    if (propsSplit[0] == "M")
-                    {
-                        if (propsSplit.Length == 6)
-                        {
-                            Message m = new Message();
-                            m.Id = int.Parse(propsSplit[1]);
-                            m.Likes = int.Parse(propsSplit[2]);
-                            m.Username = propsSplit[3];
-                            m.Date = Convert.ToDateTime(propsSplit[4].ToString());
-                            m.Content = propsSplit[5];
-                            currentChatroom.MessageList.Add(m);
-                        }
-                    }
-                    if (lineSplit.Length - 1 == i)
-                    {
-                        if (chatrooms != null)
-                            chatrooms.Add(currentChatroom);
-                    }
+                    FillListBoxes();
                 }
-                FillListBoxes();
-            }
-            catch (ApplicationException ex)
-            {
-                client.Disconnect();
+                catch (ApplicationException ex)
+                {
+                    client.Disconnect();
+                }
             }
         }
 
