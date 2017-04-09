@@ -20,8 +20,11 @@ namespace TP3_Client
             InitializeComponent();
             client = c;
             chatrooms = new List<Chatroom>();
-            FetchChatroom();
+            lbRooms.SelectionMode = SelectionMode.One;
+            lbRooms.DisplayMember = "Value";
             InitChatBox();
+            FetchChatroom();
+            FillListBoxes();
         }
 
         public void FetchChatroom()
@@ -63,13 +66,28 @@ namespace TP3_Client
             } catch (ApplicationException ex) {
                 client.Disconnect();
             }
-            FillListBoxes();
         }
 
         private void FillListBoxes() {
             foreach (Chatroom c in chatrooms)
             {
-                lbRooms.Items.Add(c.Titre);
+                lbRooms.Items.Add(new KeyValuePair<Object, String>(c, c.Titre));
+            }
+            lbRooms.SetSelected(0, true);
+        }
+
+        private void LoadSelectedListboxMessages() {
+            for (int i = 0; i < lbRooms.Items.Count; i++)
+            {
+                if (lbRooms.GetSelected(i))
+                {
+                    KeyValuePair<Object, String> selected = (KeyValuePair<Object,String>) lbRooms.Items[i];
+                    Chatroom c = (Chatroom) selected.Key;
+                    foreach (Message m in c.MessageList)
+                    {
+                        AddMessage(0.ToString(), m.Id.ToString(), m.Username, m.Date, m.Content, m.Likes);
+                    }
+                }
             }
         }
 
@@ -81,19 +99,17 @@ namespace TP3_Client
             ChatBox.Columns.Add("MessageID", 0, HorizontalAlignment.Left);
             ChatBox.Columns[0].Width = 0;
             ChatBox.Columns[1].Width = 0;
-
             ChatBox.Columns.Add("Utilisateur", ChatBox.Size.Width * 20 / 100, HorizontalAlignment.Left);
             ChatBox.Columns.Add("Date", ChatBox.Size.Width * 15 / 100, HorizontalAlignment.Left);
             ChatBox.Columns.Add("Message", ChatBox.Size.Width * 55 / 100, HorizontalAlignment.Left);
             ChatBox.Columns.Add("Like", ChatBox.Size.Width * 10 / 100, HorizontalAlignment.Left);
-            AddMessage("123", "456", "Alex", DateTime.Now, "test", 3);
         }
+
         public void AddMessage(String UserID, String MsgID, String User, DateTime time, String Message, int like)
         {
             string[] row = { UserID, MsgID, User, time.ToString(), Message, like.ToString() };
             var listViewItem = new ListViewItem(row);
             ChatBox.Items.Add(listViewItem);
-            //ChatBox.Items.Add("test");
         }
 
         private void ChatBox_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
@@ -110,6 +126,12 @@ namespace TP3_Client
         private void FrmChatroom_FormClosing(object sender, FormClosingEventArgs e)
         {
             client.Disconnect();
+        }
+
+        private void lbRooms_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ChatBox.Items.Clear();
+            LoadSelectedListboxMessages();
         }
     }
 }
