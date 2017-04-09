@@ -204,5 +204,11 @@ namespace TP3_Client
             FrmCreateChatroom frmCreateChatroom = new FrmCreateChatroom(client);
             frmCreateChatroom.Show();
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            FrmSearch frmSearch = new FrmSearch(client);
+            frmSearch.Show();
+        }
     }
 }
