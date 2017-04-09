@@ -15,24 +15,32 @@ namespace TP3_Client
     {
         private Client client;
         private List<Chatroom> chatrooms;
+        private Thread listenner;
         public FrmChatroom(Client c)
         {
             InitializeComponent();
             client = c;
-            chatrooms = new List<Chatroom>();
             lbRooms.SelectionMode = SelectionMode.One;
             lbRooms.DisplayMember = "Value";
             InitChatBox();
-            FetchChatroom();
-            FillListBoxes();
+            listenner = new Thread(Fetch);
+            listenner.Start();
+        }
+
+        public void Fetch() {
+            while (true) {
+                FetchChatroom();
+                FetchUsers();
+                Thread.Sleep(2000);
+            }
         }
 
         public void FetchChatroom()
         {
+            chatrooms = new List<Chatroom>();
             client.Send("FETCH_CHATROOMS");
             Thread.Sleep(100);
             string receive = client.Receive();
-            MessageBox.Show(receive);
             Chatroom currentChatroom = null;
             string[] lineSplit = receive.Split('\n');
             try
@@ -65,6 +73,7 @@ namespace TP3_Client
                             chatrooms.Add(currentChatroom);
                     }
                 }
+                FillListBoxes();
             }
             catch (ApplicationException ex)
             {
@@ -72,8 +81,25 @@ namespace TP3_Client
             }
         }
 
+        public void FetchUsers() {
+            lbUsers.Items.Clear();
+            client.Send("FETCH_USERS");
+            Thread.Sleep(100);
+            string receive = client.Receive();
+            string[] lineSplit = receive.Split('\n');
+            for (int i = 0; i < lineSplit.Length; i++)
+            {
+                string[] propsSplit = lineSplit[i].Split('|');
+                string state = "";
+                if (propsSplit[1] == "O")
+                    state = " [ONLINE]";
+                lbUsers.Items.Add(propsSplit[0] + state);
+            }
+        }
+
         private void FillListBoxes()
         {
+            lbRooms.Items.Clear();
             foreach (Chatroom c in chatrooms)
             {
                 lbRooms.Items.Add(new KeyValuePair<Object, String>(c, c.Titre));
