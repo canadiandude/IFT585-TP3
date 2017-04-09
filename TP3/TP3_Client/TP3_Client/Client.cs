@@ -15,7 +15,7 @@ namespace TP3_Client
         public String Name { get; }
         private Socket socket;
 
-        public static readonly int MAX_DATA_SIZE = 256;
+        public static readonly int MAX_DATA_SIZE = 1000000;
 
         public Client()
         {

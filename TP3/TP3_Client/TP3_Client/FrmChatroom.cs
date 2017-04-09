@@ -22,13 +22,18 @@ namespace TP3_Client
             client = c;
             lbRooms.SelectionMode = SelectionMode.One;
             lbRooms.DisplayMember = "Value";
+            lbUsers.SelectionMode = SelectionMode.None;
             InitChatBox();
             listenner = new Thread(Fetch);
             listenner.Start();
+            //FetchChatroom();
+            //FetchUsers();
         }
 
-        public void Fetch() {
-            while (true) {
+        public void Fetch()
+        {
+            while (true)
+            {
                 FetchChatroom();
                 FetchUsers();
                 Thread.Sleep(2000);
@@ -50,22 +55,28 @@ namespace TP3_Client
                     string[] propsSplit = lineSplit[i].Split('|');
                     if (propsSplit[0] == "C")
                     {
-                        if (currentChatroom != null)
-                            chatrooms.Add(currentChatroom);
-                        currentChatroom = new Chatroom();
-                        currentChatroom.Id = int.Parse(propsSplit[1]);
-                        currentChatroom.Titre = propsSplit[2];
-                        currentChatroom.Desc = propsSplit[3];
+                        if (propsSplit.Length == 4)
+                        {
+                            if (currentChatroom != null)
+                                chatrooms.Add(currentChatroom);
+                            currentChatroom = new Chatroom();
+                            currentChatroom.Id = int.Parse(propsSplit[1]);
+                            currentChatroom.Titre = propsSplit[2];
+                            currentChatroom.Desc = propsSplit[3];
+                        }
                     }
                     if (propsSplit[0] == "M")
                     {
-                        Message m = new Message();
-                        m.Id = int.Parse(propsSplit[1]);
-                        m.Likes = int.Parse(propsSplit[2]);
-                        m.Username = propsSplit[3];
-                        m.Date = Convert.ToDateTime(propsSplit[4].ToString());
-                        m.Content = propsSplit[5];
-                        currentChatroom.MessageList.Add(m);
+                        if (propsSplit.Length == 6)
+                        {
+                            Message m = new Message();
+                            m.Id = int.Parse(propsSplit[1]);
+                            m.Likes = int.Parse(propsSplit[2]);
+                            m.Username = propsSplit[3];
+                            m.Date = Convert.ToDateTime(propsSplit[4].ToString());
+                            m.Content = propsSplit[5];
+                            currentChatroom.MessageList.Add(m);
+                        }
                     }
                     if (lineSplit.Length - 1 == i)
                     {
@@ -81,7 +92,8 @@ namespace TP3_Client
             }
         }
 
-        public void FetchUsers() {
+        public void FetchUsers()
+        {
             lbUsers.Items.Clear();
             client.Send("FETCH_USERS");
             Thread.Sleep(100);
@@ -106,9 +118,10 @@ namespace TP3_Client
             foreach (Chatroom c in chatrooms)
             {
                 lbRooms.Items.Add(new KeyValuePair<Object, String>(c, c.Titre));
-                if (selected > 0 && c.Id == selected)
+                if (selected >= 0 && c.Id == selected)
                     lbRooms.SelectedIndex = lbRooms.Items.Count - 1;
             }
+
         }
 
         private void LoadSelectedListboxMessages()
@@ -153,6 +166,7 @@ namespace TP3_Client
 
         private void FrmChatroom_FormClosing(object sender, FormClosingEventArgs e)
         {
+            listenner.Abort();
             client.Disconnect();
         }
 
@@ -170,8 +184,10 @@ namespace TP3_Client
             }
         }
 
-        private Chatroom GetSelectedChatroom() {
-            if (lbRooms.SelectedItem != null) {
+        private Chatroom GetSelectedChatroom()
+        {
+            if (lbRooms.SelectedItem != null)
+            {
                 KeyValuePair<Object, String> selected = (KeyValuePair<Object, String>)lbRooms.SelectedItem;
                 Chatroom c = (Chatroom)selected.Key;
                 return c;
