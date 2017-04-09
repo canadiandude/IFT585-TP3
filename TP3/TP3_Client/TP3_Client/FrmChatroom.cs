@@ -133,5 +133,12 @@ namespace TP3_Client
             ChatBox.Items.Clear();
             LoadSelectedListboxMessages();
         }
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            if (txtSend.TextLength != 0) {
+                client.SendMessage(txtSend.Text);
+            }
+        }
     }
 }
