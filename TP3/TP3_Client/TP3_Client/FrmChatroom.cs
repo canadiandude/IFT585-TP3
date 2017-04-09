@@ -181,6 +181,7 @@ namespace TP3_Client
             if (txtSend.TextLength != 0)
             {
                 client.SendMessage(GetSelectedChatroom().Id, txtSend.Text);
+                txtSend.Text = "";
             }
         }
 
