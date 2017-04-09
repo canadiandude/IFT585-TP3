@@ -99,12 +99,16 @@ namespace TP3_Client
 
         private void FillListBoxes()
         {
+            int selected = -1;
+            if (GetSelectedChatroom() != null)
+                selected = GetSelectedChatroom().Id;
             lbRooms.Items.Clear();
             foreach (Chatroom c in chatrooms)
             {
                 lbRooms.Items.Add(new KeyValuePair<Object, String>(c, c.Titre));
+                if (selected > 0 && c.Id == selected)
+                    lbRooms.SelectedIndex = lbRooms.Items.Count - 1;
             }
-            lbRooms.SetSelected(0, true);
         }
 
         private void LoadSelectedListboxMessages()
@@ -167,9 +171,12 @@ namespace TP3_Client
         }
 
         private Chatroom GetSelectedChatroom() {
-            KeyValuePair<Object, String> selected = (KeyValuePair<Object, String>)lbRooms.SelectedItem;
-            Chatroom c = (Chatroom)selected.Key;
-            return c;
+            if (lbRooms.SelectedItem != null) {
+                KeyValuePair<Object, String> selected = (KeyValuePair<Object, String>)lbRooms.SelectedItem;
+                Chatroom c = (Chatroom)selected.Key;
+                return c;
+            }
+            return null;
         }
     }
 }
