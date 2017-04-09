@@ -126,10 +126,12 @@ namespace TP3_Client
 
         private void LoadSelectedListboxMessages()
         {
-            foreach (Message m in GetSelectedChatroom().MessageList)
-            {
-                AddMessage(0.ToString(), m.Id.ToString(), m.Username, m.Date, m.Content, m.Likes);
-            }
+            Chatroom c = GetSelectedChatroom();
+            if (c != null)
+                foreach (Message m in c.MessageList)
+                {
+                    AddMessage(0.ToString(), m.Id.ToString(), m.Username, m.Date, m.Content, m.Likes);
+                }
         }
 
         private void InitChatBox()
