@@ -121,7 +121,7 @@ namespace TP3_Serveur
             return chatrooms;
         }
 
-        private List<String> LoadMessages(int chatroomId)
+        public List<String> LoadMessages(int chatroomId)
         {
             List<String> messages = new List<String>();
 
