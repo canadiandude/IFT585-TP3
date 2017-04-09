@@ -49,9 +49,9 @@ namespace TP3_Client
             socket.Close();
         }
 
-        public void SendMessage(String msg)
+        public void SendMessage(int chatroomId, string contenu)
         {
-            Send("MSG:" + msg);
+            Send("MSG|" + chatroomId.ToString() + "|" + contenu);
         }
 
         private bool ValidateCredentials(String name, String pwd)

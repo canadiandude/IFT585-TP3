@@ -35,8 +35,9 @@ namespace TP3_Client
             MessageBox.Show(receive);
             Chatroom currentChatroom = null;
             string[] lineSplit = receive.Split('\n');
-            try {
-                for(int i = 0; i < lineSplit.Length; i++)
+            try
+            {
+                for (int i = 0; i < lineSplit.Length; i++)
                 {
                     string[] propsSplit = lineSplit[i].Split('|');
                     if (propsSplit[0] == "C")
@@ -58,17 +59,21 @@ namespace TP3_Client
                         m.Content = propsSplit[5];
                         currentChatroom.MessageList.Add(m);
                     }
-                    if (lineSplit.Length-1 == i) {
+                    if (lineSplit.Length - 1 == i)
+                    {
                         if (chatrooms != null)
                             chatrooms.Add(currentChatroom);
                     }
                 }
-            } catch (ApplicationException ex) {
+            }
+            catch (ApplicationException ex)
+            {
                 client.Disconnect();
             }
         }
 
-        private void FillListBoxes() {
+        private void FillListBoxes()
+        {
             foreach (Chatroom c in chatrooms)
             {
                 lbRooms.Items.Add(new KeyValuePair<Object, String>(c, c.Titre));
@@ -76,18 +81,11 @@ namespace TP3_Client
             lbRooms.SetSelected(0, true);
         }
 
-        private void LoadSelectedListboxMessages() {
-            for (int i = 0; i < lbRooms.Items.Count; i++)
+        private void LoadSelectedListboxMessages()
+        {
+            foreach (Message m in GetSelectedChatroom().MessageList)
             {
-                if (lbRooms.GetSelected(i))
-                {
-                    KeyValuePair<Object, String> selected = (KeyValuePair<Object,String>) lbRooms.Items[i];
-                    Chatroom c = (Chatroom) selected.Key;
-                    foreach (Message m in c.MessageList)
-                    {
-                        AddMessage(0.ToString(), m.Id.ToString(), m.Username, m.Date, m.Content, m.Likes);
-                    }
-                }
+                AddMessage(0.ToString(), m.Id.ToString(), m.Username, m.Date, m.Content, m.Likes);
             }
         }
 
@@ -136,9 +134,16 @@ namespace TP3_Client
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            if (txtSend.TextLength != 0) {
-                client.SendMessage(txtSend.Text);
+            if (txtSend.TextLength != 0)
+            {
+                client.SendMessage(GetSelectedChatroom().Id, txtSend.Text);
             }
+        }
+
+        private Chatroom GetSelectedChatroom() {
+            KeyValuePair<Object, String> selected = (KeyValuePair<Object, String>)lbRooms.SelectedItem;
+            Chatroom c = (Chatroom)selected.Key;
+            return c;
         }
     }
 }
