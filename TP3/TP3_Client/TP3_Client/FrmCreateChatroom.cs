@@ -24,8 +24,14 @@ namespace TP3_Client
             if (TB_Chatroom_Name.TextLength == 0 || RTB_Description.TextLength == 0)
                 MessageBox.Show("More information required.");
             else {
-                client.Send("CREATE_CHATROOM");
+                client.Send("CREATE_CHATROOM|" + TB_Chatroom_Name.Text + "|" + RTB_Description.Text);
+                Close();
             }
+        }
+
+        private void BT_Annuler_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

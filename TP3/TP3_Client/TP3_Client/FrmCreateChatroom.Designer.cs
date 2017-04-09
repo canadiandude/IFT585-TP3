@@ -73,6 +73,7 @@
             this.BT_Annuler.TabIndex = 3;
             this.BT_Annuler.Text = "Annuler";
             this.BT_Annuler.UseVisualStyleBackColor = true;
+            this.BT_Annuler.Click += new System.EventHandler(this.BT_Annuler_Click);
             // 
             // BT_Creer
             // 
