@@ -135,6 +135,9 @@ namespace TP3_Serveur
                 case "CREATE_CHATROOM":
                     CreateChatroom(client, cmdParams[1], cmdParams[2]);
                     break;
+                case "JOIN":
+                    JoinChatroom(client, int.Parse(cmdParams[1]));
+                    break;
                 default:
                     if (++client.Strikes == 5)
                     {
@@ -210,7 +213,7 @@ namespace TP3_Serveur
 
         private void ListChatrooms(ClientConnection client)
         {
-            String payload = String.Join("\n", database.ListChatrooms());
+            String payload = String.Join("\n", database.ListChatrooms(client));
             client.Send(payload);
             Console.WriteLine("Chatroom list sent to {0}", client.Name);
         }
@@ -221,6 +224,12 @@ namespace TP3_Serveur
             database.JoinChatroom(client.Id, id);
             Console.WriteLine("Chatroom \"{0}\" created", title);
             LoadChatrooms();
+        }
+
+        private void JoinChatroom(ClientConnection client, int id)
+        {
+            database.JoinChatroom(client.Id, id);
+            Console.WriteLine("{0} joind chatroom #{1}", client.Name, id);
         }
     }
 }

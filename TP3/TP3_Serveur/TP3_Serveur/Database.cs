@@ -186,11 +186,14 @@ namespace TP3_Serveur
             ExecuteNonQuery(String.Format("DELETE FROM Messages WHERE Id={0}", messageId));
         }
 
-        public List<String> ListChatrooms()
+        public List<String> ListChatrooms(ClientConnection client)
         {
             List<String> chatrooms = new List<string>();
+            String query = @"SELECT Chatrooms.Id, Title, Description FROM Chatrooms
+                            WHERE Chatrooms.Id NOT IN(SELECT ChatroomId FROM UsersChatrooms WHERE UserId={0});";
+            query = String.Format(query, client.Id);
 
-            ExecuteQuery("SELECT Id, Title, Description FROM Chatrooms", reader =>
+            ExecuteQuery(query, reader =>
             {
                 while (reader.Read())
                 {
