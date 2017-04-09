@@ -21,6 +21,7 @@ namespace TP3_Client
             client = c;
             chatrooms = new List<Chatroom>();
             lbRooms.SelectionMode = SelectionMode.One;
+            lbRooms.DisplayMember = "Value";
             InitChatBox();
             FetchChatroom();
             FillListBoxes();
@@ -72,7 +73,7 @@ namespace TP3_Client
             {
                 lbRooms.Items.Add(new KeyValuePair<Object, String>(c, c.Titre));
             }
-            lbRooms.SetSelected(1, true);
+            lbRooms.SetSelected(0, true);
         }
 
         private void LoadSelectedListboxMessages() {
@@ -125,6 +126,12 @@ namespace TP3_Client
         private void FrmChatroom_FormClosing(object sender, FormClosingEventArgs e)
         {
             client.Disconnect();
+        }
+
+        private void lbRooms_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ChatBox.Items.Clear();
+            LoadSelectedListboxMessages();
         }
     }
 }
