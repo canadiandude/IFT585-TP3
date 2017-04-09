@@ -118,7 +118,7 @@ namespace TP3_Serveur
             switch (cmdParams[0])
             {
                 case "MSG":
-                    SendMessage(client.Name + " : " + String.Join("|", cmdParams.Skip(1)));
+                    SendMessage(client, int.Parse(cmdParams[1]), String.Join("|", cmdParams.Skip(2)));
                     break;
                 case "DISCONNECT":
                     DisconnectClient(client);
@@ -126,8 +126,15 @@ namespace TP3_Serveur
                 case "FETCH_CHATROOMS":
                     SendChatrooms(client);
                     break;
+                case "FETCH_USERS":
+                    SendOnlineUsers(client);
+                    break;
                 default:
-                    client.Send("ACK");
+                    if (++client.Strikes == 5)
+                    {
+                        Console.WriteLine("{0} has lost connection", client.Name);
+                        DisconnectClient(client);
+                    }
                     break;
             }
         }
@@ -140,12 +147,10 @@ namespace TP3_Serveur
             Console.WriteLine("{0} clients connected", connectedClients.Count);
         }
 
-        private void SendMessage(String msg)
+        private void SendMessage(ClientConnection client, int chatroomId, String message)
         {
-            foreach (ClientConnection client in connectedClients)
-            {
-                client.Send(msg);
-            }
+            database.CreateMessage(message, client.Id, chatroomId);
+            chatrooms.Find(chatroom => chatroom.Id == chatroomId).Messages.Add(message);
         }
 
         private void LoadChatrooms()
@@ -184,6 +189,7 @@ namespace TP3_Serveur
                 allUsers[i] += onlineUsers.Contains(allUsers[i]) ? "|O" : "|N";
             }
             client.Send(String.Join("\n", allUsers));
+            Console.WriteLine("User info sent to {0}", client.Name);
         }
 
         private bool UserAlreadyConnected(int userId)

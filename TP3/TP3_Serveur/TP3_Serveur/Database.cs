@@ -173,5 +173,19 @@ namespace TP3_Serveur
 
             return users;
         }
+
+        public void DeleteMessage(int messageId)
+        {
+            ExecuteNonQuery(String.Format("DELETE FROM Messages WHERE Id={0}", messageId));
+        }
+
+        public List<String> ListChatrooms()
+        {
+            List<String> chatrooms = new List<string>();
+
+            ExecuteQuery("SELECT Id, Title, Description FROM Chatrooms")
+
+            return chatrooms;
+        }
     }
 }

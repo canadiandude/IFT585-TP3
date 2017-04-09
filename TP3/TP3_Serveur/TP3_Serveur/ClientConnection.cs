@@ -12,6 +12,7 @@ namespace TP3_Serveur
         public int Id;
         public String Name;
         private Socket socket;
+        public int Strikes;
 
         public static readonly int MAX_DATA_SIZE = 256;
 
@@ -19,6 +20,7 @@ namespace TP3_Serveur
         {
             socket = s;
             s.ReceiveTimeout = 100;
+            Strikes = 0;
         }
 
         public String Receive()
