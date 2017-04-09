@@ -183,7 +183,13 @@ namespace TP3_Serveur
         {
             List<String> chatrooms = new List<string>();
 
-            ExecuteQuery("SELECT Id, Title, Description FROM Chatrooms")
+            ExecuteQuery("SELECT Id, Title, Description FROM Chatrooms", reader =>
+            {
+                while (reader.Read())
+                {
+                    chatrooms.Add(String.Join("|", reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
+                }
+            });
 
             return chatrooms;
         }
