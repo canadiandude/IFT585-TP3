@@ -214,6 +214,7 @@ namespace TP3_Serveur
         private void ListChatrooms(ClientConnection client)
         {
             String payload = String.Join("\n", database.ListChatrooms(client));
+            if (String.IsNullOrEmpty(payload)) payload = "NONE";
             client.Send(payload);
             Console.WriteLine("Chatroom list sent to {0}", client.Name);
         }
