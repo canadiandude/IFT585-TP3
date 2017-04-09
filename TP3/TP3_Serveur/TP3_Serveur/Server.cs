@@ -150,7 +150,7 @@ namespace TP3_Serveur
         private void SendMessage(ClientConnection client, int chatroomId, String message)
         {
             database.CreateMessage(message, client.Id, chatroomId);
-            chatrooms.Find(chatroom => chatroom.Id == chatroomId).Messages.Add(message);
+            chatrooms.Find(chatroom => chatroom.Id == chatroomId).Messages = database.LoadMessages(chatroomId);
         }
 
         private void LoadChatrooms()
@@ -171,7 +171,6 @@ namespace TP3_Serveur
                     payload += room.ToString();
                 }
             }
-
             client.Send(payload);
             Console.WriteLine("{0} chatrooms sent to {1}", chatroomsId.Count, client.Name);
         }
