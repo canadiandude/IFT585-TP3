@@ -84,6 +84,7 @@
             this.BT_Creer.TabIndex = 4;
             this.BT_Creer.Text = "Créer";
             this.BT_Creer.UseVisualStyleBackColor = true;
+            this.BT_Creer.Click += new System.EventHandler(this.BT_Creer_Click);
             // 
             // RTB_Description
             // 

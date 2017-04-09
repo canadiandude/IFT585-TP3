@@ -26,8 +26,6 @@ namespace TP3_Client
             InitChatBox();
             listenner = new Thread(Fetch);
             listenner.Start();
-            //FetchChatroom();
-            //FetchUsers();
         }
 
         public void Fetch()
@@ -199,6 +197,12 @@ namespace TP3_Client
                 return c;
             }
             return null;
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            FrmCreateChatroom frmCreateChatroom = new FrmCreateChatroom(client);
+            frmCreateChatroom.Show();
         }
     }
 }
