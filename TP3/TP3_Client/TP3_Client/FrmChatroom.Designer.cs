@@ -146,7 +146,7 @@
             // ChatBox
             // 
             this.ChatBox.Location = new System.Drawing.Point(249, 32);
-            this.ChatBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ChatBox.Margin = new System.Windows.Forms.Padding(4);
             this.ChatBox.Name = "ChatBox";
             this.ChatBox.Size = new System.Drawing.Size(545, 505);
             this.ChatBox.TabIndex = 12;
