@@ -31,17 +31,22 @@ namespace TP3_Client
             client.Send("LIST_CHATROOMS");
             Thread.Sleep(100);
             String receive = client.Receive();
-            lineSplit = receive.Split('\n');
-
-            String []chatRoomInfo; 
-            for (int i = 0; i < lineSplit.Length; i++)
+            MessageBox.Show(receive);
+            if(receive != "NONE")
             {
-                if (lineSplit[i].Length!=0)
-                {
-                    chatRoomInfo = lineSplit[i].Split('|');
-                    LB_Search.Items.Add(chatRoomInfo[1]);
-                }           
+                lineSplit = receive.Split('\n');
+
+               String []chatRoomInfo; 
+               for (int i = 0; i < lineSplit.Length; i++)
+               {
+                   if (lineSplit[i].Length!=0)
+                   {
+                       chatRoomInfo = lineSplit[i].Split('|');
+                       LB_Search.Items.Add(chatRoomInfo[1]);
+                   }           
+               }
             }
+           
         }
      
         private void LB_Search_SelectedIndexChanged(object sender, EventArgs e)
