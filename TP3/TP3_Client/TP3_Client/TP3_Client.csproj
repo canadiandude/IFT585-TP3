@@ -54,11 +54,23 @@
     <Compile Include="FrmChatroom.Designer.cs">
       <DependentUpon>FrmChatroom.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmCreateChatroom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCreateChatroom.Designer.cs">
+      <DependentUpon>FrmCreateChatroom.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSearch.Designer.cs">
+      <DependentUpon>FrmSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="Message.cs" />
     <Compile Include="Program.cs" />
@@ -66,8 +78,14 @@
     <EmbeddedResource Include="FrmChatroom.resx">
       <DependentUpon>FrmChatroom.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmCreateChatroom.resx">
+      <DependentUpon>FrmCreateChatroom.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSearch.resx">
+      <DependentUpon>FrmSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
