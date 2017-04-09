@@ -43,19 +43,7 @@ namespace TP3_Client
                 }           
             }
         }
-        private void TB_Nom_TextChanged(object sender, EventArgs e)
-        {
-            int index;
-            if (TB_Nom.TextLength != 0)
-            {
-                index = LB_Search.FindString(TB_Nom.Text);
-                if (index != -1)
-                {                    
-                    LB_Search.SetSelected(index, true);
-                }
-            }               
-        }
-
+     
         private void LB_Search_SelectedIndexChanged(object sender, EventArgs e)
         {
             String[] chatRoomInfo;
@@ -75,6 +63,23 @@ namespace TP3_Client
         private void BT_Annuler_Click(object sender, EventArgs e)
         {      
              this.Close();  
+        }
+
+        private void BT_Selectionner_Click(object sender, EventArgs e)
+        {
+            if (LB_Search.SelectedIndex != -1)
+            {
+                String[] chatRoomInfo;
+                for (int i = 0; i < lineSplit.Length; i++)
+                {
+                    chatRoomInfo = lineSplit[i].Split('|');
+                    if(chatRoomInfo[1] == LB_Search.SelectedItem.ToString())
+                    {
+                        client.Send("JOIN|" + chatRoomInfo[0]);
+                        this.Close();
+                    }
+                }
+            }
         }
     }
 }
