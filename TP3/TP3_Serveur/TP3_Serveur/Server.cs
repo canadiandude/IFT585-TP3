@@ -49,18 +49,18 @@ namespace TP3_Serveur
             {
                 ClientConnection connection = new ClientConnection(serverSocket.Accept());
                 String[] credentials = connection.Receive().Split('|');
-                Console.WriteLine("SERVER   | new connection with credentials : {0}/{1}", credentials[0], credentials[1]);
+                Console.WriteLine("new connection with credentials : {0}/{1}", credentials[0], credentials[1]);
 
                 userId = database.GetUserId(credentials[0], credentials[1]);
                 if (userId == -1)
                 {
-                    Console.WriteLine("SERVER   | DENIED - INVALID CREDENTIALS", connection.Name);
+                    Console.WriteLine("DENIED - INVALID CREDENTIALS", connection.Name);
                     connection.Send("DENIED_INVALID_CREDENTIALS");
                     connection.Disconnect();
                 }
                 else if (UserAlreadyConnected(userId))
                 {
-                    Console.WriteLine("SERVER   | DENIED - ALREADY CONNECTED", connection.Name);
+                    Console.WriteLine("DENIED - ALREADY CONNECTED", connection.Name);
                     connection.Send("DENIED_ALREADY_CONNECTED");
                     connection.Disconnect();
                 }
@@ -72,8 +72,8 @@ namespace TP3_Serveur
                     {
                         connectedClients.Add(connection);
                     }
-                    Console.WriteLine("SERVER   | GRANTED", connection.Name);
-                    Console.WriteLine("SERVER   | {0} clients connected", connectedClients.Count);
+                    Console.WriteLine("GRANTED", connection.Name);
+                    Console.WriteLine("{0} clients connected", connectedClients.Count);
                     connection.Send("GRANTED");
                 }
 
@@ -112,7 +112,7 @@ namespace TP3_Serveur
 
         private void HandleCommand(ClientConnection client, String cmd)
         {
-            Console.WriteLine("SERVER   | {0} sent \"{1}\"", client.Name, cmd);
+            Console.WriteLine("{0} sent \"{1}\"", client.Name, cmd);
             String[] cmdParams = cmd.Split('|');
 
             switch (cmdParams[0])
@@ -136,8 +136,8 @@ namespace TP3_Serveur
         {
             client.Disconnect();
             connectedClients.Remove(client);
-            Console.WriteLine("SERVER   | {0} has disconnected", client.Name);
-            Console.WriteLine("SERVER   | {0} clients connected", connectedClients.Count);
+            Console.WriteLine("{0} has disconnected", client.Name);
+            Console.WriteLine("{0} clients connected", connectedClients.Count);
         }
 
         private void SendMessage(String msg)
@@ -168,6 +168,7 @@ namespace TP3_Serveur
             }
 
             client.Send(payload);
+            Console.WriteLine("{0} chatrooms sent to {1}", chatroomsId.Count, client.Name);
         }
 
         private void SendOnlineUsers(ClientConnection client)
