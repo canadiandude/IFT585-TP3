@@ -68,9 +68,16 @@ namespace TP3_Serveur
             ExecuteNonQuery(String.Format("INSERT INTO Users (Name, Password) VALUES ('{0}','{1}');", name, pwd));
         }
 
-        public void CreateChatroom(String title, String description)
+        public int CreateChatroom(String title, String description)
         {
+            int id = -1;
             ExecuteNonQuery(String.Format("INSERT INTO Chatrooms (Title, Description) VALUES ('{0}','{1}');", title, description));
+            ExecuteQuery("SELECT MAX(Id) FROM CHATROOMS", reader =>
+            {
+                reader.Read();
+                id = reader.GetInt32(0);
+            });
+            return id;
         }
 
         public void JoinChatroom(int userId, int chatroomId)

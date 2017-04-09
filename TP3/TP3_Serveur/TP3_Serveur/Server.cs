@@ -129,6 +129,12 @@ namespace TP3_Serveur
                 case "FETCH_USERS":
                     SendOnlineUsers(client);
                     break;
+                case "LIST_CHATROOMS":
+                    ListChatrooms(client);
+                    break;
+                case "CREATE_CHATROOM":
+                    CreateChatroom(client, cmdParams[1], cmdParams[2]);
+                    break;
                 default:
                     if (++client.Strikes == 5)
                     {
@@ -200,6 +206,21 @@ namespace TP3_Serveur
                     return true;
             }
             return false;
+        }
+
+        private void ListChatrooms(ClientConnection client)
+        {
+            String payload = String.Join("\n", database.ListChatrooms());
+            client.Send(payload);
+            Console.WriteLine("Chatroom list sent to {0}", client.Name);
+        }
+
+        private void CreateChatroom(ClientConnection client, String title, String description)
+        {
+            int id = database.CreateChatroom(title, description);
+            database.JoinChatroom(client.Id, id);
+            Console.WriteLine("Chatroom \"{0}\" created", title);
+            LoadChatrooms();
         }
     }
 }

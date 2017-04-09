@@ -30,7 +30,6 @@ namespace TP3_Client
                     FrmChatroom frmChatroom = new FrmChatroom(client);
                     this.Hide();
                     frmChatroom.ShowDialog();
-                    MessageBox.Show("Jtrop pas desolé");
                     this.Close();
                 }
                 else
