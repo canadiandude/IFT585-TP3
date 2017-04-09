@@ -171,6 +171,7 @@ namespace TP3_Serveur
                     payload += room.ToString();
                 }
             }
+            if (String.IsNullOrEmpty(payload)) payload = "NONE";
             client.Send(payload);
             Console.WriteLine("{0} chatrooms sent to {1}", chatroomsId.Count, client.Name);
         }
