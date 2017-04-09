@@ -109,7 +109,6 @@ namespace TP3_Client
             string[] row = { UserID, MsgID, User, time.ToString(), Message, like.ToString() };
             var listViewItem = new ListViewItem(row);
             ChatBox.Items.Add(listViewItem);
-            //ChatBox.Items.Add("test");
         }
 
         private void ChatBox_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
