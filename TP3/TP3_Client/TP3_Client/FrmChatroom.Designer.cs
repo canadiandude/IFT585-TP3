@@ -41,6 +41,9 @@
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.txtSend = new System.Windows.Forms.RichTextBox();
             this.ChatBox = new System.Windows.Forms.ListView();
+            this.jaimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.supprimerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbUsers
@@ -114,8 +117,11 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.jaimeToolStripMenuItem,
+            this.supprimerToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
             // 
             // btnSend
             // 
@@ -153,6 +159,19 @@
             this.ChatBox.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.ChatBox_ColumnWidthChanging);
             this.ChatBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ChatBox_MouseClick);
             // 
+            // jaimeToolStripMenuItem
+            // 
+            this.jaimeToolStripMenuItem.Name = "jaimeToolStripMenuItem";
+            this.jaimeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.jaimeToolStripMenuItem.Text = "J\'aime";
+            this.jaimeToolStripMenuItem.Click += new System.EventHandler(this.jaimeToolStripMenuItem_Click);
+            // 
+            // supprimerToolStripMenuItem
+            // 
+            this.supprimerToolStripMenuItem.Name = "supprimerToolStripMenuItem";
+            this.supprimerToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.supprimerToolStripMenuItem.Text = "Supprimer";
+            // 
             // FrmChatroom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -171,6 +190,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmChatroom";
             this.Text = "ChatroomFever";
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -190,5 +210,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private System.Windows.Forms.RichTextBox txtSend;
         private System.Windows.Forms.ListView ChatBox;
+        private System.Windows.Forms.ToolStripMenuItem jaimeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem supprimerToolStripMenuItem;
     }
 }

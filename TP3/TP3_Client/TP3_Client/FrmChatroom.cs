@@ -123,5 +123,15 @@ namespace TP3_Client
                 }
             }
         }
+
+        private void jaimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListViewItem var = sender as ListViewItem;
+            Point mousePos = ChatBox.PointToClient(Control.MousePosition);
+            ListViewHitTestInfo hitTest = ChatBox.HitTest(mousePos);
+            int columnIndex = hitTest.Item.SubItems.IndexOf(hitTest.SubItem);
+            var listViewItem = hitTest.Item as ListViewItem;
+
+        }
     }
 }
