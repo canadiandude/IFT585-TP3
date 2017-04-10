@@ -68,9 +68,16 @@ namespace TP3_Serveur
             ExecuteNonQuery(String.Format("INSERT INTO Users (Name, Password) VALUES ('{0}','{1}');", name, pwd));
         }
 
-        public void CreateChatroom(String title, String description)
+        public int CreateChatroom(String title, String description)
         {
+            int id = -1;
             ExecuteNonQuery(String.Format("INSERT INTO Chatrooms (Title, Description) VALUES ('{0}','{1}');", title, description));
+            ExecuteQuery("SELECT MAX(Id) FROM CHATROOMS", reader =>
+            {
+                reader.Read();
+                id = reader.GetInt32(0);
+            });
+            return id;
         }
 
         public void JoinChatroom(int userId, int chatroomId)
@@ -121,7 +128,7 @@ namespace TP3_Serveur
             return chatrooms;
         }
 
-        private List<String> LoadMessages(int chatroomId)
+        public List<String> LoadMessages(int chatroomId)
         {
             List<String> messages = new List<String>();
 
@@ -172,6 +179,29 @@ namespace TP3_Serveur
             });
 
             return users;
+        }
+
+        public void DeleteMessage(int messageId)
+        {
+            ExecuteNonQuery(String.Format("DELETE FROM Messages WHERE Id={0}", messageId));
+        }
+
+        public List<String> ListChatrooms(ClientConnection client)
+        {
+            List<String> chatrooms = new List<string>();
+            String query = @"SELECT Chatrooms.Id, Title, Description FROM Chatrooms
+                            WHERE Chatrooms.Id NOT IN(SELECT ChatroomId FROM UsersChatrooms WHERE UserId={0});";
+            query = String.Format(query, client.Id);
+
+            ExecuteQuery(query, reader =>
+            {
+                while (reader.Read())
+                {
+                    chatrooms.Add(String.Join("|", reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
+                }
+            });
+
+            return chatrooms;
         }
     }
 }
