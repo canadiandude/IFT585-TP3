@@ -247,7 +247,7 @@ namespace TP3_Client
                     var SelectedRow = ChatBox.Items[Indice].SubItems;
                     if (SelectedRow != null)
                     {
-                        string[] row = new string[6];// { SelectedRow[0].Text.ToString(), SelectedRow[1].ToString(), SelectedRow[2].ToString(), SelectedRow[3].ToString(), SelectedRow[4].ToString(), SelectedRow[5].ToString() };
+                        string[] row = new string[6];
                         for (int i = 0; i < SelectedRow.Count; ++i)
                         {
                             row[i] = SelectedRow[i].Text.ToString(); // declare numbers as an int array of any size
@@ -258,6 +258,7 @@ namespace TP3_Client
                         var listViewItem = new ListViewItem(row);
                         ChatBox.Items[Indice] = listViewItem;
                         Indice = -1;
+                        client.Send("LIKE" + row[1].ToString());
                     }
                 }
             }
@@ -271,8 +272,12 @@ namespace TP3_Client
                 {
                     var SelectedRow = ChatBox.Items[Indice].SubItems;
                     if (SelectedRow != null)
+                    {
                         ChatBox.Items.RemoveAt(Indice);
-                    Indice = -1;
+                        Indice = -1;
+                        client.Send("DELETE" + SelectedRow[1].Text.ToString());
+                    }
+
                 }
             }
         }

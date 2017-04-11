@@ -185,10 +185,11 @@ namespace TP3_Serveur
         {
             ExecuteNonQuery(String.Format("DELETE FROM Messages WHERE Id={0}", messageId));
         }
-        public void LikeMessage(int messageId)
+        public void LikeMessage(int messageId,int ClientId)
         {
             //TODO
-            //ExecuteNonQuery
+            ExecuteNonQuery(String.Format("INSERT INTO Likes (MessageId, UserId) VALUES ('{0}','{1}');", messageId, ClientId));
+
         }
         public List<String> ListChatrooms(ClientConnection client)
         {
