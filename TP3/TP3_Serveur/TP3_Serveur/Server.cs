@@ -138,6 +138,8 @@ namespace TP3_Serveur
                 case "JOIN":
                     JoinChatroom(client, int.Parse(cmdParams[1]));
                     break;
+                case "LIKE":
+                    LikeMessage(client, int.Parse(cmdParams[1]), int.Parse(cmdParams[2]));
                 default:
                     if (++client.Strikes == 5)
                     {
