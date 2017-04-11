@@ -258,7 +258,7 @@ namespace TP3_Client
                         var listViewItem = new ListViewItem(row);
                         ChatBox.Items[Indice] = listViewItem;
                         Indice = -1;
-                        client.Send("LIKE" + row[1].ToString());
+                        client.Send("LIKE|" + row[1].ToString());
                     }
                 }
             }
@@ -275,7 +275,7 @@ namespace TP3_Client
                     {
                         ChatBox.Items.RemoveAt(Indice);
                         Indice = -1;
-                        client.Send("DELETE" + SelectedRow[1].Text.ToString());
+                        client.Send("DELETE|" + SelectedRow[1].Text.ToString());
                     }
 
                 }
