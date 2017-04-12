@@ -281,6 +281,7 @@ namespace TP3_Client
                     {
                         ChatBox.Items.RemoveAt(Indice);
                         Indice = -1;
+                        MessageBox.Show(String.Format("Client : {0} | Selected : {1}", client.Name, SelectedRow[2].Text.ToString()));
                         if (client.Name == SelectedRow[2].Text.ToString())
                             client.Send("DELETE|" + SelectedRow[1].Text.ToString());
                     }

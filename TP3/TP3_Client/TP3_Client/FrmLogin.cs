@@ -24,7 +24,7 @@ namespace TP3_Client
         {
             try
             {
-                client = new Client();
+                client = new Client(TB_Username.Text);
                 bool connect = client.Connect(TB_IpAdress.Text, Int32.Parse(TB_Port.Text), TB_Username.Text, TB_Password.Text);
                 if (connect)
                 {

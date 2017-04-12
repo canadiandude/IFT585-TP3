@@ -17,9 +17,9 @@ namespace TP3_Client
 
         public static readonly int MAX_DATA_SIZE = 1000000;
 
-        public Client()
+        public Client(String name)
         {
-            Name = Guid.NewGuid().ToString().Split('-')[0];
+            Name = name;
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
 

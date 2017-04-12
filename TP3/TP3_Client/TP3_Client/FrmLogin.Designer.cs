@@ -55,7 +55,7 @@
             this.TB_IpAdress.Name = "TB_IpAdress";
             this.TB_IpAdress.Size = new System.Drawing.Size(114, 20);
             this.TB_IpAdress.TabIndex = 1;
-            this.TB_IpAdress.Text = "192.168.2.21";
+            this.TB_IpAdress.Text = "127.0.0.1";
             // 
             // label1
             // 
