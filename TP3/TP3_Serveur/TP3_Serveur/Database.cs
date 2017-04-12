@@ -132,9 +132,11 @@ namespace TP3_Serveur
         {
             List<String> messages = new List<String>();
 
-            String query = @"SELECT Message, UserID, Name, Timestamp, Messages.Id FROM Messages
-                            INNER JOIN Users ON Users.Id=Messages.UserId 
-                            WHERE ChatroomId={0}";
+            String query = @"SELECT Message, Messages.UserID, Name, Timestamp, Messages.Id, COUNT(Likes.Id) FROM Messages
+                            INNER JOIN Users ON Users.Id=Messages.UserId
+                            LEFT OUTER JOIN Likes ON Likes.MessageId=Messages.Id
+                            WHERE ChatroomId={0}
+                            GROUP BY Message, Messages.UserID, Name, Timestamp, Messages.Id";
             query = String.Format(query, chatroomId);
             ExecuteQuery(query, reader =>
             {
@@ -145,7 +147,8 @@ namespace TP3_Serveur
                     String user = reader.GetString(2);
                     String timestamp = reader.GetDateTime(3).ToString();
                     int messageId = reader.GetInt32(4);
-                    messages.Add(String.Join("|", "M", messageId, 0, user, timestamp, message));
+                    int nbLikes = reader.GetInt32(5);
+                    messages.Add(String.Join("|", "M", messageId, nbLikes, user, timestamp, message));
                 }
             });
 
@@ -184,6 +187,17 @@ namespace TP3_Serveur
         public void DeleteMessage(int messageId)
         {
             ExecuteNonQuery(String.Format("DELETE FROM Messages WHERE Id={0}", messageId));
+        }
+
+        public bool LikeMessage(int messageId, int clientId)
+        {
+            bool alreadyLikes = false;
+            ExecuteQuery(String.Format("SELECT Id FROM LIKES WHERE UserId={0} AND MessageId={1}", clientId, messageId), reader =>
+            {
+                alreadyLikes = reader.Read();
+            });
+            if (!alreadyLikes) ExecuteNonQuery(String.Format("INSERT INTO Likes (MessageId, UserId) VALUES ({0},{1});", messageId, clientId));
+            return !alreadyLikes;
         }
 
         public List<String> ListChatrooms(ClientConnection client)

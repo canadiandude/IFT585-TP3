@@ -59,3 +59,9 @@ TP3/TP3_Client/\.vs/TP3_Client/v15/\.suo
 *.pdb
 
 *.txt
+
+TP3/TP3_Serveur/\.vs/TP3_Serveur/v15/\.suo
+
+TP3/TP3_Serveur/TP3_Serveur/bin/Debug/
+
+TP3/TP3_Serveur/TP3_Serveur/obj/Debug/

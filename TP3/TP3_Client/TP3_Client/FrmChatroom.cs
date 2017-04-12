@@ -16,6 +16,8 @@ namespace TP3_Client
         private Client client;
         private List<Chatroom> chatrooms;
         private Thread listenner;
+        private ListView.SelectedIndexCollection SelectedIndice;
+        private int Indice = -1;
         public FrmChatroom(Client c)
         {
             InitializeComponent();
@@ -27,7 +29,11 @@ namespace TP3_Client
             listenner = new Thread(Fetch);
             listenner.Start();
         }
-
+        public FrmChatroom()
+        {
+            InitializeComponent();
+            InitChatBox();
+        }
         public void Fetch()
         {
             while (true)
@@ -138,6 +144,7 @@ namespace TP3_Client
         private void InitChatBox()
         {
             ChatBox.View = View.Details;
+
             // Add a column with width 20 and left alignment.
             ChatBox.Columns.Add("UserID", 0, HorizontalAlignment.Left);
             ChatBox.Columns.Add("MessageID", 0, HorizontalAlignment.Left);
@@ -147,6 +154,8 @@ namespace TP3_Client
             ChatBox.Columns.Add("Date", ChatBox.Size.Width * 15 / 100, HorizontalAlignment.Left);
             ChatBox.Columns.Add("Message", ChatBox.Size.Width * 55 / 100, HorizontalAlignment.Left);
             ChatBox.Columns.Add("Like", ChatBox.Size.Width * 10 / 100, HorizontalAlignment.Left);
+            AddMessage("123", "456", "Alex", DateTime.Now, "test", 3);
+            AddMessage("246", "357", "john", DateTime.Now, "t fife", 3);
         }
 
         public void AddMessage(String UserID, String MsgID, String User, DateTime time, String Message, int like)
@@ -210,5 +219,69 @@ namespace TP3_Client
             FrmSearch frmSearch = new FrmSearch(client);
             frmSearch.Show();
         }
+
+
+
+
+        private void ChatBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            ListView listView = sender as ListView;
+
+            if (e.Button == MouseButtons.Right)
+            {
+                    SelectedIndice = listView.SelectedIndices;
+                    if (SelectedIndice != null && SelectedIndice.Count != 0)
+                    {
+                        Indice = SelectedIndice[0];
+                        //  ChatBox.ContextMenu.Show(MenuMessage, new Point(e.X, e.Y));
+                    }
+            }
+        }
+
+        private void jaimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ChatBox.Items.Count != 0)
+            {
+                if (Indice != -1)
+                {
+                    var SelectedRow = ChatBox.Items[Indice].SubItems;
+                    if (SelectedRow != null)
+                    {
+                        string[] row = new string[6];
+                        for (int i = 0; i < SelectedRow.Count; ++i)
+                        {
+                            row[i] = SelectedRow[i].Text.ToString(); // declare numbers as an int array of any size
+                        }
+                        int x = Convert.ToInt32(row[5]);
+                        ++x;
+                        row[5] = x.ToString();
+                        var listViewItem = new ListViewItem(row);
+                        ChatBox.Items[Indice] = listViewItem;
+                        Indice = -1;
+                        client.Send("LIKE|" + row[1].ToString());
+                    }
+                }
+            }
+        }
+
+        private void supprimerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ChatBox.Items.Count != 0)
+            {
+                if (Indice != -1)
+                {
+                    var SelectedRow = ChatBox.Items[Indice].SubItems;
+                    if (SelectedRow != null)
+                    {
+                        ChatBox.Items.RemoveAt(Indice);
+                        Indice = -1;
+                        client.Send("DELETE|" + SelectedRow[1].Text.ToString());
+                    }
+
+                }
+            }
+        }
+
+
     }
 }

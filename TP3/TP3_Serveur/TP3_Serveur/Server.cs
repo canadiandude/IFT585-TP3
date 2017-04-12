@@ -138,6 +138,12 @@ namespace TP3_Serveur
                 case "JOIN":
                     JoinChatroom(client, int.Parse(cmdParams[1]));
                     break;
+                case "LIKE":
+                    LikeMessage(client, int.Parse(cmdParams[1]));
+                    break;
+                case "DELETE":
+                    DeleteMessage(client, int.Parse(cmdParams[1]));
+                    break;
                 default:
                     if (++client.Strikes == 5)
                     {
@@ -146,6 +152,21 @@ namespace TP3_Serveur
                     }
                     break;
             }
+        }
+
+        private void DeleteMessage(ClientConnection client, int messageId)
+        {
+            database.DeleteMessage(messageId);
+            LoadChatrooms();
+        }
+
+        private void LikeMessage(ClientConnection client, int messageId)
+        {
+            if (database.LikeMessage(messageId, client.Id))
+                Console.WriteLine("{0} liked message #{1}", client.Name, messageId);
+            else
+                Console.WriteLine("{0} already likes message #{1}", client.Name, messageId);
+            LoadChatrooms();
         }
 
         private void DisconnectClient(ClientConnection client)
