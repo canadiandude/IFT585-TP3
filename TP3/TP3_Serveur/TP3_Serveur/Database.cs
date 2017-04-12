@@ -59,7 +59,7 @@ namespace TP3_Serveur
         public void TestConnection()
         {
             Connect();
-            Console.WriteLine("Connection to database OK");
+            Console.WriteLine("Connexion à la base de données OK");
             Disconnect();
         }
 

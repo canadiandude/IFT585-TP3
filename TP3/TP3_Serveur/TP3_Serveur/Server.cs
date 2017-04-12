@@ -30,16 +30,16 @@ namespace TP3_Serveur
             serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             serverSocket.Bind(new IPEndPoint(IPAddress.Parse(ipAdress), port));
             serverSocket.Listen(10);
-            Console.WriteLine("Server socket opened");
+            Console.WriteLine("Socket serveur ouvert");
 
             connectionListener = new Thread(CheckForNewConnection);
             connectionListener.Start();
-            Console.WriteLine("Connection listener started");
+            Console.WriteLine("Écoute des connexions démarrée");
 
             database.TestConnection();
             LoadChatrooms();
 
-            Console.WriteLine("---------- SERVER READY ----------");
+            Console.WriteLine("---------- SERVEUR PRÊT ----------");
         }
 
         private void CheckForNewConnection()
@@ -49,18 +49,18 @@ namespace TP3_Serveur
             {
                 ClientConnection connection = new ClientConnection(serverSocket.Accept());
                 String[] credentials = connection.Receive().Split('|');
-                Console.WriteLine("new connection with credentials : {0}/{1}", credentials[0], credentials[1]);
+                Console.WriteLine("Nouvelle connexion avec infos : {0}/{1}", credentials[0], credentials[1]);
 
                 userId = database.GetUserId(credentials[0], credentials[1]);
                 if (userId == -1)
                 {
-                    Console.WriteLine("DENIED - INVALID CREDENTIALS", connection.Name);
+                    Console.WriteLine("Refusée - Infos invalides", connection.Name);
                     connection.Send("DENIED_INVALID_CREDENTIALS");
                     connection.Disconnect();
                 }
                 else if (UserAlreadyConnected(userId))
                 {
-                    Console.WriteLine("DENIED - ALREADY CONNECTED", connection.Name);
+                    Console.WriteLine("Refusée - Déjà connecté", connection.Name);
                     connection.Send("DENIED_ALREADY_CONNECTED");
                     connection.Disconnect();
                 }
@@ -72,8 +72,8 @@ namespace TP3_Serveur
                     {
                         connectedClients.Add(connection);
                     }
-                    Console.WriteLine("GRANTED", connection.Name);
-                    Console.WriteLine("{0} clients connected", connectedClients.Count);
+                    Console.WriteLine("Autorisée", connection.Name);
+                    Console.WriteLine("{0} clients connectés", connectedClients.Count);
                     connection.Send("GRANTED");
                 }
 
@@ -112,7 +112,7 @@ namespace TP3_Serveur
 
         private void HandleCommand(ClientConnection client, String cmd)
         {
-            Console.WriteLine("{0} sent \"{1}\"", client.Name, cmd);
+            Console.WriteLine("{0} a envoyé \"{1}\"", client.Name, cmd);
             String[] cmdParams = cmd.Split('|');
 
             switch (cmdParams[0])
@@ -147,7 +147,7 @@ namespace TP3_Serveur
                 default:
                     if (++client.Strikes == 5)
                     {
-                        Console.WriteLine("{0} has lost connection", client.Name);
+                        Console.WriteLine("{0} has perdu la connexion", client.Name);
                         DisconnectClient(client);
                     }
                     break;
@@ -163,9 +163,9 @@ namespace TP3_Serveur
         private void LikeMessage(ClientConnection client, int messageId)
         {
             if (database.LikeMessage(messageId, client.Id))
-                Console.WriteLine("{0} liked message #{1}", client.Name, messageId);
+                Console.WriteLine("{0} aime le message #{1}", client.Name, messageId);
             else
-                Console.WriteLine("{0} already likes message #{1}", client.Name, messageId);
+                Console.WriteLine("{0} aime déjà le message #{1}", client.Name, messageId);
             LoadChatrooms();
         }
 
@@ -173,8 +173,8 @@ namespace TP3_Serveur
         {
             client.Disconnect();
             connectedClients.Remove(client);
-            Console.WriteLine("{0} has disconnected", client.Name);
-            Console.WriteLine("{0} clients connected", connectedClients.Count);
+            Console.WriteLine("{0} s'est déconnecté", client.Name);
+            Console.WriteLine("{0} clients connectés", connectedClients.Count);
         }
 
         private void SendMessage(ClientConnection client, int chatroomId, String message)
@@ -185,9 +185,9 @@ namespace TP3_Serveur
 
         private void LoadChatrooms()
         {
-            Console.WriteLine("Loading chatrooms...");
+            Console.WriteLine("Chargement des salles de discution...");
             chatrooms = database.LoadChatrooms();
-            Console.WriteLine("{0} chatrooms loaded", chatrooms.Count);
+            Console.WriteLine("{0} salles de discution chargées", chatrooms.Count);
         }
 
         private void SendChatrooms(ClientConnection client)
@@ -203,7 +203,7 @@ namespace TP3_Serveur
             }
             if (String.IsNullOrEmpty(payload)) payload = "NONE";
             client.Send(payload);
-            Console.WriteLine("{0} chatrooms sent to {1}", chatroomsId.Count, client.Name);
+            Console.WriteLine("{0} salles de discution envoyées à {1}", chatroomsId.Count, client.Name);
         }
 
         private void SendOnlineUsers(ClientConnection client)
@@ -219,7 +219,7 @@ namespace TP3_Serveur
                 allUsers[i] += onlineUsers.Contains(allUsers[i]) ? "|O" : "|N";
             }
             client.Send(String.Join("\n", allUsers));
-            Console.WriteLine("User info sent to {0}", client.Name);
+            Console.WriteLine("Informations sur les usagers envoyées à {0}", client.Name);
         }
 
         private bool UserAlreadyConnected(int userId)
@@ -237,21 +237,21 @@ namespace TP3_Serveur
             String payload = String.Join("\n", database.ListChatrooms(client));
             if (String.IsNullOrEmpty(payload)) payload = "NONE";
             client.Send(payload);
-            Console.WriteLine("Chatroom list sent to {0}", client.Name);
+            Console.WriteLine("Liste des salles de discution envoyée à {0}", client.Name);
         }
 
         private void CreateChatroom(ClientConnection client, String title, String description)
         {
             int id = database.CreateChatroom(title, description);
             database.JoinChatroom(client.Id, id);
-            Console.WriteLine("Chatroom \"{0}\" created", title);
+            Console.WriteLine("Salles de discution \"{0}\" créée", title);
             LoadChatrooms();
         }
 
         private void JoinChatroom(ClientConnection client, int id)
         {
             database.JoinChatroom(client.Id, id);
-            Console.WriteLine("{0} joind chatroom #{1}", client.Name, id);
+            Console.WriteLine("{0} a rejoint la salle de discution #{1}", client.Name, id);
         }
     }
 }

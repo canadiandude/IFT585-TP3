@@ -93,7 +93,7 @@
             this.Controls.Add(this.RTB_Description);
             this.Controls.Add(this.LB_Search);
             this.Name = "FrmSearch";
-            this.Text = "FrmSearch";
+            this.Text = "Recherche";
             this.ResumeLayout(false);
             this.PerformLayout();
 

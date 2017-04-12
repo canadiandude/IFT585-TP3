@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
+using System.Net.Sockets;
 
 namespace TP3_Client
 {
@@ -16,7 +17,6 @@ namespace TP3_Client
         Client client;
         public Form1()
         {
-            client = new Client();
             InitializeComponent();
         }
 
@@ -24,6 +24,7 @@ namespace TP3_Client
         {
             try
             {
+                client = new Client();
                 bool connect = client.Connect(TB_IpAdress.Text, Int32.Parse(TB_Port.Text), TB_Username.Text, TB_Password.Text);
                 if (connect)
                 {
@@ -38,6 +39,10 @@ namespace TP3_Client
                     client.Disconnect();
                 }
             }
+            catch (SocketException)
+            {
+                MessageBox.Show(String.Format("Serveur inaccessible à l'adresse '{0}:{1}'", TB_IpAdress.Text, TB_Port.Text));
+            }
             catch (ApplicationException ex)
             {
                 MessageBox.Show(ex.Message);
@@ -46,7 +51,13 @@ namespace TP3_Client
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            client.Disconnect();
+            try
+            {
+                client.Disconnect();
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

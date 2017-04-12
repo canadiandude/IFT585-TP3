@@ -135,10 +135,13 @@ namespace TP3_Client
         {
             Chatroom c = GetSelectedChatroom();
             if (c != null)
+            {
+                lblRoomTitle.Text = c.Titre;
                 foreach (Message m in c.MessageList)
                 {
                     AddMessage(0.ToString(), m.Id.ToString(), m.Username, m.Date, m.Content, m.Likes);
                 }
+            }
         }
 
         private void InitChatBox()

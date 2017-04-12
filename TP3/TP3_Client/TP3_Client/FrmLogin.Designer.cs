@@ -41,96 +41,87 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(147, 135);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Location = new System.Drawing.Point(137, 110);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 28);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Connect";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Connexion";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // TB_IpAdress
             // 
-            this.TB_IpAdress.Location = new System.Drawing.Point(113, 7);
-            this.TB_IpAdress.Margin = new System.Windows.Forms.Padding(4);
+            this.TB_IpAdress.Location = new System.Drawing.Point(98, 6);
             this.TB_IpAdress.Name = "TB_IpAdress";
-            this.TB_IpAdress.Size = new System.Drawing.Size(132, 22);
+            this.TB_IpAdress.Size = new System.Drawing.Size(114, 20);
             this.TB_IpAdress.TabIndex = 1;
             this.TB_IpAdress.Text = "192.168.2.21";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 11);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 17);
+            this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Adresse IP : ";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 43);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(12, 35);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 17);
+            this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Port :";
             // 
             // TB_Port
             // 
-            this.TB_Port.Location = new System.Drawing.Point(113, 39);
-            this.TB_Port.Margin = new System.Windows.Forms.Padding(4);
+            this.TB_Port.Location = new System.Drawing.Point(98, 32);
             this.TB_Port.Name = "TB_Port";
-            this.TB_Port.Size = new System.Drawing.Size(132, 22);
-            this.TB_Port.TabIndex = 4;
+            this.TB_Port.Size = new System.Drawing.Size(114, 20);
+            this.TB_Port.TabIndex = 2;
             this.TB_Port.Text = "42";
             // 
             // TB_Username
             // 
-            this.TB_Username.Location = new System.Drawing.Point(113, 71);
-            this.TB_Username.Margin = new System.Windows.Forms.Padding(4);
+            this.TB_Username.Location = new System.Drawing.Point(98, 58);
             this.TB_Username.Name = "TB_Username";
-            this.TB_Username.Size = new System.Drawing.Size(132, 22);
-            this.TB_Username.TabIndex = 5;
+            this.TB_Username.Size = new System.Drawing.Size(114, 20);
+            this.TB_Username.TabIndex = 3;
             this.TB_Username.Text = "jack";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 75);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(12, 61);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(81, 17);
+            this.label3.Size = new System.Drawing.Size(78, 13);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Username :";
+            this.label3.Text = "Nom d\'usager :";
             // 
             // TB_Password
             // 
-            this.TB_Password.Location = new System.Drawing.Point(113, 103);
-            this.TB_Password.Margin = new System.Windows.Forms.Padding(4);
+            this.TB_Password.Location = new System.Drawing.Point(98, 84);
             this.TB_Password.Name = "TB_Password";
-            this.TB_Password.Size = new System.Drawing.Size(132, 22);
-            this.TB_Password.TabIndex = 5;
+            this.TB_Password.Size = new System.Drawing.Size(114, 20);
+            this.TB_Password.TabIndex = 4;
             this.TB_Password.Text = "a";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 107);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(12, 87);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 17);
+            this.label4.Size = new System.Drawing.Size(80, 13);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Password :";
+            this.label4.Text = "Mot de passe : ";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(263, 178);
+            this.ClientSize = new System.Drawing.Size(224, 145);
             this.Controls.Add(this.TB_Password);
             this.Controls.Add(this.TB_Username);
             this.Controls.Add(this.label4);
@@ -140,9 +131,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TB_IpAdress);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Connexion";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();

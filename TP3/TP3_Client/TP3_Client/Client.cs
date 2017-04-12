@@ -58,7 +58,8 @@ namespace TP3_Client
         {
             Send(String.Format("{0}|{1}", name, pwd));
             String response = Receive();
-            MessageBox.Show(response);
+            if (response == "DENIED_INVALID_CREDENTIALS") MessageBox.Show("Nom d'usager et/ou mot de passe invalides");
+            else if (response == "DENIED_ALREADY_CONNECTED") MessageBox.Show("Cet usager est déjà connecté");
             return response == "GRANTED";
         }
     }

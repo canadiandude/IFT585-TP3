@@ -31,7 +31,6 @@ namespace TP3_Client
             client.Send("LIST_CHATROOMS");
             Thread.Sleep(100);
             String receive = client.Receive();
-            MessageBox.Show(receive);
             if(receive != "NONE")
             {
                 lineSplit = receive.Split('\n');

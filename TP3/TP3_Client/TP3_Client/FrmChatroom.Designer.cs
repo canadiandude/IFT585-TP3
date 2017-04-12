@@ -72,7 +72,7 @@
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(98, 25);
             this.btnCreate.TabIndex = 2;
-            this.btnCreate.Text = "Create";
+            this.btnCreate.Text = "Créer";
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
@@ -83,7 +83,7 @@
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(98, 25);
             this.btnSearch.TabIndex = 3;
-            this.btnSearch.Text = "Search";
+            this.btnSearch.Text = "Recherche";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
@@ -93,29 +93,29 @@
             this.lblRoomTitle.Location = new System.Drawing.Point(184, 10);
             this.lblRoomTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblRoomTitle.Name = "lblRoomTitle";
-            this.lblRoomTitle.Size = new System.Drawing.Size(27, 13);
+            this.lblRoomTitle.Size = new System.Drawing.Size(28, 13);
             this.lblRoomTitle.TabIndex = 4;
-            this.lblRoomTitle.Text = "Title";
+            this.lblRoomTitle.Text = "Titre";
             // 
             // lblUsers
             // 
             this.lblUsers.AutoSize = true;
-            this.lblUsers.Location = new System.Drawing.Point(10, 9);
+            this.lblUsers.Location = new System.Drawing.Point(6, 8);
             this.lblUsers.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblUsers.Name = "lblUsers";
-            this.lblUsers.Size = new System.Drawing.Size(37, 13);
+            this.lblUsers.Size = new System.Drawing.Size(55, 13);
             this.lblUsers.TabIndex = 5;
-            this.lblUsers.Text = "Users:";
+            this.lblUsers.Text = "Usagers : ";
             // 
             // lblRooms
             // 
             this.lblRooms.AutoSize = true;
-            this.lblRooms.Location = new System.Drawing.Point(10, 223);
+            this.lblRooms.Location = new System.Drawing.Point(6, 224);
             this.lblRooms.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblRooms.Name = "lblRooms";
-            this.lblRooms.Size = new System.Drawing.Size(43, 13);
+            this.lblRooms.Size = new System.Drawing.Size(104, 13);
             this.lblRooms.TabIndex = 6;
-            this.lblRooms.Text = "Rooms:";
+            this.lblRooms.Text = "Salles de discution : ";
             // 
             // MenuMessage
             // 
@@ -124,19 +124,19 @@
             this.jaimeToolStripMenuItem,
             this.supprimerToolStripMenuItem});
             this.MenuMessage.Name = "contextMenuStrip1";
-            this.MenuMessage.Size = new System.Drawing.Size(153, 70);
+            this.MenuMessage.Size = new System.Drawing.Size(130, 48);
             // 
             // jaimeToolStripMenuItem
             // 
             this.jaimeToolStripMenuItem.Name = "jaimeToolStripMenuItem";
-            this.jaimeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.jaimeToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.jaimeToolStripMenuItem.Text = "J\'aime";
             this.jaimeToolStripMenuItem.Click += new System.EventHandler(this.jaimeToolStripMenuItem_Click);
             // 
             // supprimerToolStripMenuItem
             // 
             this.supprimerToolStripMenuItem.Name = "supprimerToolStripMenuItem";
-            this.supprimerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.supprimerToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.supprimerToolStripMenuItem.Text = "Supprimer";
             this.supprimerToolStripMenuItem.Click += new System.EventHandler(this.supprimerToolStripMenuItem_Click);
             // 
@@ -147,7 +147,7 @@
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(83, 25);
             this.btnSend.TabIndex = 9;
-            this.btnSend.Text = "Send";
+            this.btnSend.Text = "Envoyer";
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 

@@ -22,9 +22,9 @@ namespace TP3_Client
         private void BT_Creer_Click(object sender, EventArgs e)
         {
             if (TB_Chatroom_Name.TextLength == 0 || RTB_Description.TextLength == 0)
-                MessageBox.Show("More information required.");
+                MessageBox.Show("Veuillez remplir tout les champs");
             else {
-                client.Send("CREATE_CHATROOM|" + TB_Chatroom_Name.Text + "|" + RTB_Description.Text);
+                client.Send("CREATE_CHATROOM|" + TB_Chatroom_Name.Text.Replace("|", "") + "|" + RTB_Description.Text.Replace("|", ""));
                 Close();
             }
         }
