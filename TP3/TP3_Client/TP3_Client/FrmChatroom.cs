@@ -164,7 +164,6 @@ namespace TP3_Client
             var listViewItem = new ListViewItem(row);
             ChatBox.Items.Add(listViewItem);
         }
-
         private void ChatBox_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
         {
             //This will try hiding the column at index 1
@@ -229,12 +228,12 @@ namespace TP3_Client
 
             if (e.Button == MouseButtons.Right)
             {
-                    SelectedIndice = listView.SelectedIndices;
-                    if (SelectedIndice != null && SelectedIndice.Count != 0)
-                    {
-                        Indice = SelectedIndice[0];
-                        //  ChatBox.ContextMenu.Show(MenuMessage, new Point(e.X, e.Y));
-                    }
+                SelectedIndice = listView.SelectedIndices;
+                if (SelectedIndice != null && SelectedIndice.Count != 0)
+                {
+                    Indice = SelectedIndice[0];
+                    //  ChatBox.ContextMenu.Show(MenuMessage, new Point(e.X, e.Y));
+                }
             }
         }
 
@@ -247,18 +246,22 @@ namespace TP3_Client
                     var SelectedRow = ChatBox.Items[Indice].SubItems;
                     if (SelectedRow != null)
                     {
-                        string[] row = new string[6];
-                        for (int i = 0; i < SelectedRow.Count; ++i)
-                        {
-                            row[i] = SelectedRow[i].Text.ToString(); // declare numbers as an int array of any size
-                        }
-                        int x = Convert.ToInt32(row[5]);
-                        ++x;
-                        row[5] = x.ToString();
-                        var listViewItem = new ListViewItem(row);
-                        ChatBox.Items[Indice] = listViewItem;
+                        /* string[] row = new string[6];
+                         for (int i = 0; i < SelectedRow.Count; ++i)
+                         {
+                             row[i] = SelectedRow[i].Text.ToString(); // declare numbers as an int array of any size
+                         }
+                         int x = Convert.ToInt32(row[5]);
+                         ++x;
+                         row[5] = x.ToString();
+                         var listViewItem = new ListViewItem(row);
+                         ChatBox.Items[Indice] = listViewItem;
+                         Indice = -1;
+                         client.Send("LIKE|" + row[1].ToString());
+                         */
                         Indice = -1;
-                        client.Send("LIKE|" + row[1].ToString());
+                        client.Send("LIKE|" + SelectedRow[1].Text.ToString());
+
                     }
                 }
             }
@@ -275,7 +278,8 @@ namespace TP3_Client
                     {
                         ChatBox.Items.RemoveAt(Indice);
                         Indice = -1;
-                        client.Send("DELETE|" + SelectedRow[1].Text.ToString());
+                        if (client.Name == SelectedRow[2].Text.ToString())
+                            client.Send("DELETE|" + SelectedRow[1].Text.ToString());
                     }
 
                 }
