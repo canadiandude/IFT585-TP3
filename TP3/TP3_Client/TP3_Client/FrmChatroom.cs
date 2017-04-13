@@ -290,6 +290,12 @@ namespace TP3_Client
             }
         }
 
-
+        private void btnDesabonner_Click(object sender, EventArgs e)
+        {
+            Chatroom c = GetSelectedChatroom();
+            if(c != null) {
+                client.Send("LEAVE|" + c.Id);
+            }
+        }
     }
 }

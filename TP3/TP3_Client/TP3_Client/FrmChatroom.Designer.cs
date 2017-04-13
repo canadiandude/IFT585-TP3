@@ -43,6 +43,7 @@
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.txtSend = new System.Windows.Forms.RichTextBox();
             this.ChatBox = new System.Windows.Forms.ListView();
+            this.btnDesabonner = new System.Windows.Forms.Button();
             this.MenuMessage.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,7 +71,7 @@
             this.btnCreate.Location = new System.Drawing.Point(9, 442);
             this.btnCreate.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(98, 25);
+            this.btnCreate.Size = new System.Drawing.Size(61, 25);
             this.btnCreate.TabIndex = 2;
             this.btnCreate.Text = "Créer";
             this.btnCreate.UseVisualStyleBackColor = true;
@@ -78,10 +79,10 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(112, 442);
+            this.btnSearch.Location = new System.Drawing.Point(74, 441);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(2);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(98, 25);
+            this.btnSearch.Size = new System.Drawing.Size(73, 25);
             this.btnSearch.TabIndex = 3;
             this.btnSearch.Text = "Recherche";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -159,10 +160,10 @@
             // 
             // txtSend
             // 
-            this.txtSend.Location = new System.Drawing.Point(214, 442);
+            this.txtSend.Location = new System.Drawing.Point(232, 442);
             this.txtSend.Margin = new System.Windows.Forms.Padding(2);
             this.txtSend.Name = "txtSend";
-            this.txtSend.Size = new System.Drawing.Size(299, 26);
+            this.txtSend.Size = new System.Drawing.Size(281, 26);
             this.txtSend.TabIndex = 11;
             this.txtSend.Text = "";
             // 
@@ -179,11 +180,22 @@
             this.ChatBox.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.ChatBox_ColumnWidthChanging);
             this.ChatBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ChatBox_MouseUp);
             // 
+            // btnDesabonner
+            // 
+            this.btnDesabonner.Location = new System.Drawing.Point(152, 441);
+            this.btnDesabonner.Name = "btnDesabonner";
+            this.btnDesabonner.Size = new System.Drawing.Size(75, 23);
+            this.btnDesabonner.TabIndex = 13;
+            this.btnDesabonner.Text = "Désabonner";
+            this.btnDesabonner.UseVisualStyleBackColor = true;
+            this.btnDesabonner.Click += new System.EventHandler(this.btnDesabonner_Click);
+            // 
             // FrmChatroom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 477);
+            this.Controls.Add(this.btnDesabonner);
             this.Controls.Add(this.ChatBox);
             this.Controls.Add(this.txtSend);
             this.Controls.Add(this.btnSend);
@@ -219,5 +231,6 @@
         private System.Windows.Forms.ListView ChatBox;
         private System.Windows.Forms.ToolStripMenuItem jaimeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem supprimerToolStripMenuItem;
+        private System.Windows.Forms.Button btnDesabonner;
     }
 }
